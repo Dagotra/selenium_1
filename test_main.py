@@ -33,7 +33,7 @@ def test_error_login_steam(browser):
 
     wait.until(EC.invisibility_of_element_located(LOADER))
 
-    wait.until(EC.visibility_of_element_located(ERROR_TEXT))
-    text = wait.until(EC.visibility_of_element_located(ERROR_TEXT)).text
+    error_text = wait.until(EC.visibility_of_element_located(ERROR_TEXT))
+    text = error_text.text
     assert STRING_ERROR_TEXT == text, \
         f"Текст ошибки при невалидной авторизации не совпадает с шаблоном текста '{STRING_ERROR_TEXT}'"
