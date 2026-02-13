@@ -37,6 +37,7 @@ def test_search_game(browser, game, lang):
     search.check_open_page()
     search.sort_descending_order()
     search.refresh_locator()
-    [search.create_list_game(i) for i in range(MIN_RANGE, max_range)]
+    list_games = [search.create_list_game(i) for i in range(MIN_RANGE, max_range)]
+    print(list_games) #Список игр отфильтрованных по убыванию цен
     prices = search.get_prices()
     assert prices == sorted(prices, reverse=True), "Баг разработки!!!"
