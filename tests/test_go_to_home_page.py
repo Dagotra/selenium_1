@@ -1,94 +1,42 @@
 import pytest
+from selenium_1.config.config_reader import ConfigReader
 from selenium_1.steam_site.home_page import HomePage
 from selenium_1.steam_site.search_game_page import SearchGamePage
 
-LIST_TESTING_GAME = ["The Witcher", "Fallout"]
-LIST_LANGUAGE = ["russian", "english"]
+N = [10, 20]
 MIN_RANGE = 1
-MAX_RANGE_WITCHER = 11
-MAX_RANGE_FALLOUT = 21
+MAX_RANGE_WITCHER = N[0] + 1
+MAX_RANGE_FALLOUT = N[1] + 1
 
-
-@pytest.mark.xfail(reason="Сортировка багована")
-def test_search_game_witcher_ru(browser):
-    """Тест ввода игры The Witcher в поисковик на русском языке"""
-    prices = []
-    home = HomePage(browser)
-    search = SearchGamePage(browser)
-    home.open_page()
+@pytest.mark.xfail(reason="Нарушенная сортировка по убыванию цены")
+@pytest.mark.parametrize("game,lang", [
+    ("The Witcher", "russian"),
+    ("The Witcher", "english"),
+    ("Fallout", "russian"),
+    ("Fallout", "english"),
+])
+def test_search_game(browser, game, lang):
+    """Тест поиска игры с разными языками"""
+    config = ConfigReader()
+    url = config.get("app", "base_url")
+    browser.get(url)
+    home = HomePage()
+    search = SearchGamePage()
     home.wait_unique_element()
-    home.check_language(LIST_LANGUAGE[0])
-    home.enter_game_name(LIST_TESTING_GAME[0])
+    current_lang = home.check_language()
+    if lang == "russian":
+        if current_lang != "ru":
+            home.change_language(config.get("app", "default_language"))
+    else:
+        if current_lang == "ru":
+            home.change_language(config.get("app", "english"))
+    max_range = MAX_RANGE_WITCHER if game == "The Witcher" else MAX_RANGE_FALLOUT
+    home.enter_game_name(game)
     home.click_search()
-    search.is_opened()
+    search.open_page()
     search.check_open_page()
     search.sort_descending_order()
     search.refresh_locator()
-    for i in range(MIN_RANGE, MAX_RANGE_WITCHER):
-        name = search.create_list_game(i)
-        prices.append(name)
-
-    print(prices)
-
-
-def test_search_game_witcher_eng(browser):
-    """Тест ввода игры The Witcher в поисковик на английском языке"""
-    prices = []
-    home = HomePage(browser)
-    search = SearchGamePage(browser)
-    home.open_page()
-    home.wait_unique_element()
-    home.check_language(LIST_LANGUAGE[1])
-    home.enter_game_name(LIST_TESTING_GAME[0])
-    home.click_search()
-    search.is_opened()
-    search.check_open_page()
-    search.sort_descending_order()
-    search.refresh_locator()
-    for i in range(MIN_RANGE, MAX_RANGE_WITCHER):
-        name = search.create_list_game(i)
-        prices.append(name)
-
-    print(prices)
-
-
-def test_checking_move_fallout_ru(browser):
-    """Тест ввода игры Fallout в поисковик на русском языке"""
-    prices = []
-    home = HomePage(browser)
-    search = SearchGamePage(browser)
-    home.open_page()
-    home.wait_unique_element()
-    home.check_language(LIST_LANGUAGE[0])
-    home.enter_game_name(LIST_TESTING_GAME[1])
-    home.click_search()
-    search.is_opened()
-    search.check_open_page()
-    search.sort_descending_order()
-    search.refresh_locator()
-    for i in range(MIN_RANGE, MAX_RANGE_FALLOUT):
-        name = search.create_list_game(i)
-        prices.append(name)
-
-    print(prices)
-
-
-def test_checking_move_search_fallout_eng(browser):
-    """Тест ввода игры Fallout в поисковик на английском языке"""
-    prices = []
-    home = HomePage(browser)
-    search = SearchGamePage(browser)
-    home.open_page()
-    home.wait_unique_element()
-    home.check_language(LIST_LANGUAGE[0])
-    home.enter_game_name(LIST_TESTING_GAME[1])
-    home.click_search()
-    search.is_opened()
-    search.check_open_page()
-    search.sort_descending_order()
-    search.refresh_locator()
-    for i in range(MIN_RANGE, MAX_RANGE_FALLOUT):
-        name = search.create_list_game(i)
-        prices.append(name)
-
-    print(prices)
+    [search.create_list_game(i) for i in range(MIN_RANGE, max_range)]
+    prices = search.get_prices()
+    assert prices == sorted(prices, reverse=True), "Баг разработки!!!"

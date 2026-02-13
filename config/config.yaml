@@ -1,0 +1,13 @@
+app:
+  base_url: "https://store.steampowered.com/"
+  default_language: "russian"
+  english: "english"
+
+timeout:
+  default: 10
+  short: 1
+
+browser:
+  name: "chrome"
+  headless: false
+  arguments: "--start-maximized"
