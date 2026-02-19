@@ -7,11 +7,9 @@ def browser(request):
     driver = DriverSingleton()
     lange = request.param
     valid_language = (driver.options.to_capabilities().get('goog:chromeOptions').get('args'))[1]
-    if lange in valid_language:
-        yield driver
-    else:
+    if lange not in valid_language:
         DriverSingleton.close_driver()
         driver = DriverSingleton(language=request.param)
-        yield driver
+    yield driver
 
     DriverSingleton.close_driver()
