@@ -5,8 +5,9 @@ from selenium_1.config.config_reader import ConfigReader
 
 class DriverSingleton:
     _driver = None
+    _DEFAULT_LANGUAGE = ConfigReader().get("app", "default_language")
 
-    def __new__(cls, language="ru", *args, **kwargs):
+    def __new__(cls, language=_DEFAULT_LANGUAGE, *args, **kwargs):
         if cls._driver is None:
             config = ConfigReader()
             options = Options()
