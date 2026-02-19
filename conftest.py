@@ -2,8 +2,16 @@ import pytest
 from selenium_1.driver_singleton import DriverSingleton
 
 
-@pytest.fixture()
-def browser():
+@pytest.fixture
+def browser(request):
     driver = DriverSingleton()
-    yield driver
+    lange = request.param
+    valid_language = (driver.options.to_capabilities().get('goog:chromeOptions').get('args'))[1]
+    if lange in valid_language:
+        yield driver
+    else:
+        DriverSingleton.close_driver()
+        driver = DriverSingleton(language=request.param)
+        yield driver
+
     DriverSingleton.close_driver()

@@ -3,7 +3,9 @@ import yaml
 
 
 class ConfigReader:
-    def __init__(self, path: str = "config/config.yaml"):
+    DEFAULT_CONFIG = "config/config.yaml"
+
+    def __init__(self, path: str = DEFAULT_CONFIG):
         self.path = path
         self.data = self._load()
 

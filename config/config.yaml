@@ -1,7 +1,7 @@
 app:
   base_url: "https://store.steampowered.com/"
-  default_language: "russian"
-  english: "english"
+  russian: "ru"
+  english: "en"
 
 timeout:
   default: 10
