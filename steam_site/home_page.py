@@ -18,6 +18,7 @@ class HomePage(BasePage):
         element = self.wait.until(EC.element_to_be_clickable(self.SEARCH_INPUT))
         element.click()
         element.send_keys(name)
+        self.wait.until(EC.visibility_of_element_located(self.SEARCH_INPUT))
 
     def click_search(self):
         """Нажимаем кнопку поиска"""

@@ -11,4 +11,3 @@ class BasePage:
     def __init__(self):
         self.driver = DriverSingleton()
         self.wait = WebDriverWait(self.driver, BasePage.TIME_OUT_WEB_DRIVER)
-        self.short_wait = WebDriverWait(self.driver, BasePage.SHORT_TIME_OUT)

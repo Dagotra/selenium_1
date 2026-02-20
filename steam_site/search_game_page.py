@@ -13,6 +13,7 @@ class SearchGamePage(BasePage):
     DYNAMIC_LOC_NAME_GAME = "(//a[contains(@href, 'app')]//span[@class='title'])[{}]"
     LOAD_BAR = By.ID, "search_results_loading"
     RESULT_ROW = By.XPATH, "//*[@id='search_resultsRows']/*"
+    OPACITY_LOCATOR = By.XPATH, '//*[@id="search_result_container"] [contains(@style,"opacity")]'
 
     def waiting_for_page_to_open(self):
         """
@@ -28,6 +29,8 @@ class SearchGamePage(BasePage):
         sort_selector.click()
         price_button = self.wait.until(EC.visibility_of_element_located(self.DESC_PRICE_BUTTON))
         price_button.click()
+        self.wait.until(EC.visibility_of_element_located(self.PRICE_LOCATOR))
+        self.end_of_game_list_restart()
 
     def get_price_game(self, index):
         price = self.wait.until(EC.visibility_of_element_located((By.XPATH, self.PRICE_GAME.format(index))))
@@ -61,7 +64,9 @@ class SearchGamePage(BasePage):
                 break
             last = elements[-1]
             self.driver.execute_script("arguments[0].scrollIntoView();", last)
-            self.short_wait.until(EC.invisibility_of_element_located(self.LOAD_BAR))
             counter_after = len(self.wait.until(EC.visibility_of_all_elements_located(self.RESULT_ROW)))
             if counter_after <= count_before:
                 break
+
+    def end_of_game_list_restart(self):
+        self.wait.until_not(EC.visibility_of_element_located(self.OPACITY_LOCATOR))
