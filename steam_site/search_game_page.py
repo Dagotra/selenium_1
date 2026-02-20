@@ -30,7 +30,7 @@ class SearchGamePage(BasePage):
         price_button = self.wait.until(EC.visibility_of_element_located(self.DESC_PRICE_BUTTON))
         price_button.click()
         self.wait.until(EC.visibility_of_element_located(self.PRICE_LOCATOR))
-        self.end_of_game_list_restart()
+        self.waiting_for_game_list_to_load()
 
     def get_price_game(self, index):
         price = self.wait.until(EC.visibility_of_element_located((By.XPATH, self.PRICE_GAME.format(index))))
@@ -53,20 +53,27 @@ class SearchGamePage(BasePage):
         for i in range(1, len(elements) + 1):
             raw = self.get_price_game(i)
             prices.append(int(raw) if raw and raw.isdigit() else 0)
+        print(prices)
         return prices
 
     def scroll_list_down(self):
         """Метод скроллинга по списку отсортированных игр по убыванию до последней игры с ценой"""
         while True:
-            elements = self.wait.until(EC.visibility_of_all_elements_located(self.RESULT_ROW))
+            elements = self.wait.until(EC.visibility_of_all_elements_located(self.PRICE_LOCATOR))
             count_before = len(elements)
             if not elements:
                 break
             last = elements[-1]
             self.driver.execute_script("arguments[0].scrollIntoView();", last)
-            counter_after = len(self.wait.until(EC.visibility_of_all_elements_located(self.RESULT_ROW)))
-            if counter_after <= count_before:
-                break
+            try:
+                self.wait.until(EC.visibility_of_element_located(self.LOAD_BAR))
+                self.wait.until_not(EC.visibility_of_element_located(self.LOAD_BAR))
+            finally:
+                counter_after = len(self.wait.until(EC.visibility_of_all_elements_located(self.PRICE_LOCATOR)))
+                print(counter_after, count_before)
+                if counter_after <= count_before:
+                    break
 
-    def end_of_game_list_restart(self):
+    def waiting_for_game_list_to_load(self):
+        self.wait.until(EC.visibility_of_element_located(self.OPACITY_LOCATOR))
         self.wait.until_not(EC.visibility_of_element_located(self.OPACITY_LOCATOR))
