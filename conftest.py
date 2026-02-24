@@ -1,5 +1,5 @@
 import pytest
-from selenium_1.driver_singleton import DriverSingleton
+from driver_singleton import DriverSingleton
 
 
 @pytest.fixture

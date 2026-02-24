@@ -1,7 +1,7 @@
 import pytest
-from selenium_1.config.config_reader import ConfigReader
-from selenium_1.steam_site.home_page import HomePage
-from selenium_1.steam_site.search_game_page import SearchGamePage
+from config.config_reader import ConfigReader
+from steam_site.home_page import HomePage
+from steam_site.search_game_page import SearchGamePage
 
 MIN_RANGE = 1
 

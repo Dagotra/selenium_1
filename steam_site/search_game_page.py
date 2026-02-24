@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from selenium_1.steam_site.base_page import BasePage
+from steam_site.base_page import BasePage
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -53,7 +53,6 @@ class SearchGamePage(BasePage):
         for i in range(1, len(elements) + 1):
             raw = self.get_price_game(i)
             prices.append(int(raw) if raw and raw.isdigit() else 0)
-        print(prices)
         return prices
 
     def scroll_list_down(self):
@@ -70,7 +69,6 @@ class SearchGamePage(BasePage):
                 self.wait.until_not(EC.visibility_of_element_located(self.LOAD_BAR))
             finally:
                 counter_after = len(self.wait.until(EC.visibility_of_all_elements_located(self.PRICE_LOCATOR)))
-                print(counter_after, count_before)
                 if counter_after <= count_before:
                     break
 

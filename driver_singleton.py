@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium_1.config.config_reader import ConfigReader
+from config.config_reader import ConfigReader
 
 
 class DriverSingleton:
