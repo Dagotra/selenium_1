@@ -1,0 +1,7 @@
+app:
+  base_url: "https://store.steampowered.com/"
+
+browser:
+  name: "chrome"
+  headless: false
+  arguments: "--start-maximized"
