@@ -125,3 +125,11 @@ class Browser:
         self._driver.close()
         Logger.info(f"Current tab is closed")
 
+    def wait_for_url_to_be(self, url: str) -> None:
+        self._wait.until(EC.url_to_be(url))
+
+    def default_content(self) -> None:
+        self._driver.switch_to.default_content()
+
+    def wait_and_switch_to_frame(self, locator) -> None:
+        self._wait.until(EC.frame_to_be_available_and_switch_to_it(locator))
