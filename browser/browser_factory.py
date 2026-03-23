@@ -21,5 +21,4 @@ class BrowserFactory:
             options.add_argument("--headless=new")
         Logger.info(f"Создаем вебдрайвер '{driver_name}' c опциями '{options.arguments}'")
         driver = webdriver.Chrome(options=options)
-        webdriver.ChromeOptions()
         return driver

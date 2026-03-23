@@ -18,7 +18,7 @@ class BaseElement:
             locator: str | tuple,
             description: str = None,
             timeout: int = DEFAULT_TIME
-    ):
+    ) -> None:
         self.browser = browser
         self.timeout = timeout
         if isinstance(locator, str):
@@ -64,7 +64,10 @@ class BaseElement:
     def wait_for_visible(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.visibility_of_element_located)
 
-    def is_exists(self):
+    def wait_for_not_visible(self) -> WebElement:
+        return self._wait_for(expected_condition=expected_conditions.visibility_of_element_located)
+
+    def is_exists(self) -> bool:
         try:
             self.wait_for_presence()
             return True
@@ -107,7 +110,7 @@ class BaseElement:
         Logger.info(f"{self}: attribute '{attribute}' = '{value}'")
         return value
 
-    def click_right_button_mouse(self):
+    def click_right_button_mouse(self) -> None:
         element = self.wait_for_clickable()
         Logger.info(f"{self}: {self.__class__.__name__}: click right button in element: {element}")
         try:
@@ -116,7 +119,7 @@ class BaseElement:
             Logger.error(f"{self}: {err}")
             raise
 
-    def move_slider_to_value(self, random_number):
+    def move_slider_to_value(self, random_number: int) -> None:
         Logger.info(f"{self}: {self.__class__.__name__}: random place in the rang, element: {random_number}")
         try:
             step = random_number * 2

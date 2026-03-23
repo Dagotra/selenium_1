@@ -33,3 +33,7 @@ class Logger:
     @staticmethod
     def error(message) -> None:
         Logger.__logger.error(msg=message)
+
+    @staticmethod
+    def debug(message) -> None:
+        Logger.__logger.debug(msg=message)

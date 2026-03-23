@@ -1,6 +1,8 @@
 from logger.logger import Logger
 from browser.browser import Browser
+from pages.dynamic_content_page import DynamicContentPage
 from pages.frames_page import FramesPage
+from pages.infinity_scroll import InfiniteScrollPage
 from pages.nested_frames_page import NestedFramesPage
 from pages.horizontal_slider_page import HorizontalSliderPage
 from pages.start_page import StartPage
@@ -10,6 +12,9 @@ from pages.hovers_page import HoversPage
 from pages.interactions_page import InteractionsPage
 from pages.new_window_page import NewWindowPage
 from faker import Faker
+
+from pages.upload_page import UploadPage
+from utils.pyautogui_utils import PyAutoGUIUtilities
 
 fake = Faker()
 
@@ -261,6 +266,7 @@ def test_handlers(driver):
 
 
 def test_iframe(driver):
+    Logger.info(f"Запускаем тест '{test_iframe.__name__}'")
     url_frame = "https://demoqa.com/frames"
     expected_url_frames = "https://demoqa.com/frames"
     expected_url_nested_frames = "https://demoqa.com/nestedframes"
@@ -298,4 +304,107 @@ def test_iframe(driver):
     assert actual_text_frame2 == actual_text_frame1, (
         f"Ожидаемый результат: '{actual_text_frame1}'. "
         f"Фактический результат: '{actual_text_frame2}'."
+    )
+
+
+def test_dynamic_content(driver):
+    url_dynamic_content = "http://the-internet.herokuapp.com/dynamic_content"
+    attribute = "src"
+    number_pictures = 3
+    counter = 10
+    is_duplicate_found = False
+    br = Browser(driver)
+    dyp = DynamicContentPage(br)
+    Logger.info(f"Запускаем тест {test_dynamic_content.__name__}")
+
+    br.get(url_dynamic_content)
+    dyp.wait_for_open()
+
+    while counter != 0:
+        list_img = dyp.get_list_image_paths(3)
+        if len(list_img) != len(set(list_img)):
+            Logger.info("Найдены две или три одинаковые картинки")
+            is_duplicate_found = True
+            break
+
+        br.refresh()
+        counter -= 1
+        continue
+    assert is_duplicate_found, f"Превышено количество попыток, совпадений не найдено"
+
+
+def test_infinity_scroll(driver):
+    Logger.info(f"Запускаем тест: '{test_infinity_scroll.__name__}'")
+    url_infinite_scroll = "http://the-internet.herokuapp.com/infinite_scroll"
+    age = 40
+    br = Browser(driver)
+    ifs = InfiniteScrollPage(br)
+
+    br.get(url_infinite_scroll)
+    ifs.wait_for_open()
+    ifs.scroll_until_age(age)
+    after = ifs.parse_paragraph()
+
+
+def test_upload_image(driver, upload_test_file_path_remove):
+    Logger.info(f"Запускаем тест: '{test_upload_image.__name__}'")
+    url_upload = "http://the-internet.herokuapp.com/upload"
+    expected_text = "File Uploaded!"
+
+    br = Browser(driver)
+    up = UploadPage(br)
+
+    br.get(url_upload)
+    up.wait_for_open()
+
+    up.download_file(upload_test_file_path_remove)
+    up.click_file_submit_button()
+    up.wait_for_open_uploaded()
+    actual_text = up.get_text_file_uploaded()
+
+    assert expected_text == actual_text, (
+        f"Ожидаемый результат: '{expected_text}'. "
+        f"Фактический результат: '{actual_text}'."
+    )
+
+
+def test_upload_image_plus_dialog_window(driver, upload_test_file_path_remove):
+    Logger.info(f"Запускаем тест: '{test_upload_image_plus_dialog_window.__name__}'")
+    url_upload = "http://the-internet.herokuapp.com/upload"
+    expected_symbol = "✔"
+
+    br = Browser(driver)
+    up = UploadPage(br)
+    pagui = PyAutoGUIUtilities()
+
+    br.get(url_upload)
+    up.wait_for_open()
+
+    up.click_drag_and_drop_upload()
+    pagui.upload_file(upload_test_file_path_remove)
+    actual_symbol = up.get_text_success_mark()
+
+    assert expected_symbol == actual_symbol, (
+        f"Ожидаемый результат: '{expected_symbol}'. "
+        f"Фактический результат: '{actual_symbol}'."
+    )
+
+
+def test_upload_image_plus_drag_n_drop(driver, upload_test_file_path_remove):
+    Logger.info(f"Запускаем тест: '{test_upload_image_plus_drag_n_drop.__name__}'")
+    url_upload = "http://the-internet.herokuapp.com/upload"
+    expected_symbol = "✔"
+
+    br = Browser(driver)
+    up = UploadPage(br)
+
+    br.get(url_upload)
+    up.wait_for_open()
+
+    up.upload_file_via_hidden_input(upload_test_file_path_remove)
+    actual_symbol = up.get_text_success_mark()
+
+    assert expected_symbol == actual_symbol, (
+        f"Ожидаемый результат: '{expected_symbol}'. "
+        f"Фактический результат: '{actual_symbol}'."
     )
