@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class HomePage(BasePage):
-    UNIQUE_ELEMENT_LOC = By.ID, 'home_maincap_v7'
+    UNIQUE_ELEMENT_LOC = By.ID, 'takeover_videos'
     HEADER_LOC = By.XPATH, '//div[@role="navigation"]'
     SEARCH_INPUT = By.XPATH, f'{HEADER_LOC[1]}//input[@type="text"]'
     SEARCH_BUTTON = By.XPATH, f'{HEADER_LOC[1]}//button[@type="submit"]'

@@ -23,7 +23,7 @@ def test_search_game(browser, game, max_range):
     home.click_search()
     search.waiting_for_page_to_open()
     search.sort_descending_order()
-    list_games = [search.create_list_game(i) for i in range(MIN_RANGE, max_range + 1)]
+    list_games = [search.get_name_in_list_game(i) for i in range(MIN_RANGE, max_range + 1)]
     # print(list_games)  # Список игр отфильтрованных по убыванию цен
     # print(len(list_games))  # Список игр отфильтрованных по убыванию цен
     prices = search.get_prices()
