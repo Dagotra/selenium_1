@@ -25,6 +25,5 @@ class SliderElement(Input):
             self.move_slider_to_right(differance)
         elif value > target_value:
             self.move_slider_to_left(differance)
-        else:
-            return target_value
+
         return target_value
