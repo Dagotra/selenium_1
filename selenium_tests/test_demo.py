@@ -1,3 +1,5 @@
+import pytest
+
 from logger.logger import Logger
 from browser.browser import Browser
 from pages.dynamic_content_page import DynamicContentPage
@@ -9,12 +11,13 @@ from pages.start_page import StartPage
 from pages.alert_page import AlertPage
 from pages.context_menu_page import ContextMenuPage
 from pages.hovers_page import HoversPage
-from pages.interactions_page import InteractionsPage
+from pages.windows_page import WindowsPage
 from pages.new_window_page import NewWindowPage
 from faker import Faker
 
 from pages.upload_page import UploadPage
 from utils.pyautogui_utils import PyAutoGUIUtilities
+from utils.random_utils import RandomUtils
 
 fake = Faker()
 
@@ -51,7 +54,8 @@ def test_alerts(driver):
 
     br.get(url_alerts)
     ap.wait_for_open()
-    actual_js_alert_text = ap.get_js_alert_text()
+    ap.click_alert_button()
+    actual_js_alert_text = br.get_alert_text()
     assert actual_js_alert_text == expected_js_alert_text, (
         f"Ожидаемый результат: '{expected_js_alert_text}'. "
         f"Фактический результат: '{actual_js_alert_text}'."
@@ -63,8 +67,8 @@ def test_alerts(driver):
         f"Ожидаемый результат: '{expected_result_alert_text}'. "
         f"Фактический результат: '{actual_js_alert_result_text}'."
     )
-
-    actual_js_confirm_text = ap.get_js_confirm_text()
+    ap.click_confirm_button()
+    actual_js_confirm_text = br.get_alert_text()
     assert actual_js_confirm_text == expected_js_confirm_text, (
         f"Ожидаемый результат: '{expected_js_confirm_text}'. "
         f"Фактический результат: '{actual_js_confirm_text}'."
@@ -77,7 +81,8 @@ def test_alerts(driver):
         f"Фактический результат: '{actual_js_confirm_result_text}'."
     )
 
-    actual_js_prompt_text = ap.get_js_prompt_text()
+    ap.click_prompt_button()
+    actual_js_prompt_text = br.get_alert_text()
     br.send_keys_in_alert(text_in_alert)
     br.close_alert()
     assert actual_js_prompt_text == expected_js_prompt_text, (
@@ -108,7 +113,8 @@ def test_alerts_plus_js(driver):
 
     br.get(url_alerts_plus_js)
     ap.wait_for_open()
-    actual_js_alert_text = ap.get_js_method_alert_text()
+    ap.click_js_alert_button()
+    actual_js_alert_text = br.get_alert_text()
     assert actual_js_alert_text == expected_js_alert_text, (
         f"Ожидаемый результат: '{expected_js_alert_text}'. "
         f"Фактический результат: '{actual_js_alert_text}'."
@@ -121,7 +127,8 @@ def test_alerts_plus_js(driver):
         f"Фактический результат: '{actual_js_alert_result_text}'."
     )
 
-    actual_js_confirm_text = ap.get_js_method_confirm_text()
+    ap.click_js_confirm_button()
+    actual_js_confirm_text = br.get_alert_text()
     assert actual_js_confirm_text == expected_js_confirm_text, (
         f"Ожидаемый результат: '{expected_js_confirm_text}'. "
         f"Фактический результат: '{actual_js_confirm_text}'."
@@ -134,14 +141,14 @@ def test_alerts_plus_js(driver):
         f"Фактический результат: '{actual_js_confirm_result_text}'."
     )
 
-    actual_js_prompt_text = ap.get_js_method_prompt_text()
+    ap.click_js_prompt_button()
+    actual_js_prompt_text = br.get_alert_text()
     br.send_keys_in_alert(text_in_alert)
     br.close_alert()
     assert actual_js_prompt_text == expected_js_prompt_text, (
         f"Ожидаемый результат: '{expected_js_prompt_text}'. "
         f"Фактический результат: '{actual_js_prompt_text}'."
     )
-
     actual_js_prompt_result_text = ap.get_text_result()
     assert actual_js_prompt_result_text == " ".join(expected_result_prompt_text.split()), (
         f"Ожидаемый результат: '{expected_result_prompt_text}'. "
@@ -173,10 +180,19 @@ def test_action(driver):
 
     br = Browser(driver)
     hs = HorizontalSliderPage(br)
+    ru = RandomUtils()
 
     br.get(url_actions)
     hs.wait_for_open()
-    expected_number = hs.set_random_slider_value()
+
+    attributes_for_utils = hs.get_values()
+    target_value = ru.get_random_value_in_range(
+        attributes_for_utils.min,
+        attributes_for_utils.max,
+        attributes_for_utils.step
+    )
+
+    expected_number = hs.set_slider_value(target_value)
     actual_number = hs.get_slider_value_text()
     assert actual_number == expected_number, (
         f"Ожидаемый результат: '{expected_number}'. "
@@ -184,32 +200,31 @@ def test_action(driver):
     )
 
 
-def test_hover(driver):
+@pytest.mark.parametrize("index_user", [1, 2, 3])
+def test_hover(driver, index_user):
     url_hover = "http://the-internet.herokuapp.com/hovers"
     Logger.info(f"Запускаем тест '{test_hover.__name__}'")
-    index_user = [1, 2, 3]
 
     br = Browser(driver)
     hrs = HoversPage(br)
 
     br.get(url_hover)
     hrs.wait_for_open()
-    for _, value in enumerate(index_user):
-        expected_url_user = f"https://the-internet.herokuapp.com/users/{value}"
-        expected_text_user = f'name: user{value}'
-        hrs.hover_user(value)
-        actual_text_user = hrs.get_text_in_hover_user(value)
-        assert actual_text_user == expected_text_user, (
-            f"Ожидаемый результат: '{expected_text_user}'. "
-            f"Фактический результат: '{actual_text_user}'."
-        )
-        hrs.click_view_profile_user(value)
-        actual_url_user = br.get_current_url()
-        assert actual_url_user == expected_url_user, (
-            f"Ожидаемый результат: '{expected_url_user}'. "
-            f"Фактический результат: '{actual_url_user}'."
-        )
-        br.go_back_to_previous_page()
+    expected_url_user = f"https://the-internet.herokuapp.com/users/{index_user}"
+    expected_text_user = f'name: user{index_user}'
+    hrs.hover_user(index_user)
+    actual_text_user = hrs.get_text_in_hover_user(index_user)
+    assert actual_text_user == expected_text_user, (
+        f"Ожидаемый результат: '{expected_text_user}'. "
+        f"Фактический результат: '{actual_text_user}'."
+    )
+    hrs.click_view_profile_user(index_user)
+    actual_url_user = br.get_current_url()
+    assert actual_url_user == expected_url_user, (
+        f"Ожидаемый результат: '{expected_url_user}'. "
+        f"Фактический результат: '{actual_url_user}'."
+    )
+    br.go_back()
 
 
 def test_handlers(driver):
@@ -219,7 +234,7 @@ def test_handlers(driver):
     Logger.info(f"Запускаем тест '{test_handlers.__name__}'")
 
     br = Browser(driver)
-    isp = InteractionsPage(br)
+    isp = WindowsPage(br)
     nwp = NewWindowPage(br)
 
     br.get(url_interactions)
@@ -234,7 +249,7 @@ def test_handlers(driver):
         f"Ожидаемый результат: '{expected_name_new_title}'. "
         f"Фактический результат: '{actual_name_new_title}'."
     )
-    actual_text_in_new_tab = nwp.get_text_new_tab()
+    actual_text_in_new_tab = isp.get_text_tab()
     assert actual_text_in_new_tab == expected_text_in_new_tab, (
         f"Ожидаемый результат: '{expected_text_in_new_tab}'. "
         f"Фактический результат: '{actual_text_in_new_tab}'."
@@ -244,12 +259,12 @@ def test_handlers(driver):
     isp.wait_for_open()
     isp.click_button_click_here()
 
-    br.switch_to_any_tab(2)
+    br.switch_to_number_tab(2)
     assert actual_name_new_title == expected_name_new_title, (
         f"Ожидаемый результат: '{expected_name_new_title}'. "
         f"Фактический результат: '{actual_name_new_title}'."
     )
-    actual_text_in_new_tab = nwp.get_text_new_tab()
+    actual_text_in_new_tab = isp.get_text_tab()
     assert actual_text_in_new_tab == expected_text_in_new_tab, (
         f"Ожидаемый результат: '{expected_text_in_new_tab}'. "
         f"Фактический результат: '{actual_text_in_new_tab}'."
@@ -258,9 +273,9 @@ def test_handlers(driver):
     br.switch_to_first_tab()
     isp.wait_for_open()
     br.switch_to_last_tab()
-    br.close_tab()
+    br.close()
     br.switch_to_last_tab()
-    br.close_tab()
+    br.close()
     # Свитчимся на вкладку, чтобы тесты дальше не падали
     br.switch_to_last_tab()
 
@@ -292,13 +307,13 @@ def test_iframe(driver):
         f"Ожидаемый результат: '{expected_text_child_frame}'. "
         f"Фактический результат: '{actual_text_child_frame}'."
     )
-    br.default_content()
+    br.switch_to_default_content()
     nested_fr.click_button_frames()
     br.wait_for_url_to_be(expected_url_frames)
     fr.wait_for_open()
     fr.wait_and_switch_frame1()
     actual_text_frame1 = fr.get_text_frame()
-    br.default_content()
+    br.switch_to_default_content()
     fr.wait_and_switch_frame2()
     actual_text_frame2 = fr.get_text_frame()
     assert actual_text_frame2 == actual_text_frame1, (
@@ -309,8 +324,6 @@ def test_iframe(driver):
 
 def test_dynamic_content(driver):
     url_dynamic_content = "http://the-internet.herokuapp.com/dynamic_content"
-    attribute = "src"
-    number_pictures = 3
     counter = 10
     is_duplicate_found = False
     br = Browser(driver)
@@ -343,7 +356,10 @@ def test_infinity_scroll(driver):
     br.get(url_infinite_scroll)
     ifs.wait_for_open()
     ifs.scroll_until_age(age)
-    after = ifs.parse_paragraph()
+    exepted_quantity_paragraph = ifs.parse_paragraph()
+    assert age == exepted_quantity_paragraph, (
+        f"Возраст тестировщика: '{age}', отличается от количества найденых абзацев ('{exepted_quantity_paragraph}')"
+    )
 
 
 def test_upload_image(driver, upload_test_file_path_remove):
@@ -357,9 +373,9 @@ def test_upload_image(driver, upload_test_file_path_remove):
     br.get(url_upload)
     up.wait_for_open()
 
-    up.download_file(upload_test_file_path_remove)
+    up.upload_file_via_file_input(upload_test_file_path_remove)
     up.click_file_submit_button()
-    up.wait_for_open_uploaded()
+    up.wait_for_open()
     actual_text = up.get_text_file_uploaded()
 
     assert expected_text == actual_text, (

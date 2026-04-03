@@ -4,18 +4,19 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver import ActionChains
 from browser.browser import Browser
 from logger.logger import Logger
 
 
 class BaseElement:
     DEFAULT_TIME = 10
+    Locator = tuple[str, str]
 
     def __init__(
             self,
             browser: Browser,
-            locator: str | tuple,
+            locator: str | Locator,
             description: str = None,
             timeout: int = DEFAULT_TIME
     ) -> None:
@@ -64,8 +65,11 @@ class BaseElement:
     def wait_for_visible(self) -> WebElement:
         return self._wait_for(expected_condition=expected_conditions.visibility_of_element_located)
 
-    def wait_for_not_visible(self) -> WebElement:
-        return self._wait_for(expected_condition=expected_conditions.visibility_of_element_located)
+    def wait_for_not_visible(self) -> None:
+        self._wait_for_not(expected_condition=expected_conditions.visibility_of_element_located)
+
+    def wait_for_visible_all_elements(self) -> list[WebElement]:
+        return self._wait.until(expected_conditions.visibility_of_all_elements_located(self.locator))
 
     def is_exists(self) -> bool:
         try:
@@ -87,6 +91,11 @@ class BaseElement:
         element = self.wait_for_presence()
         Logger.info(f"{self}: js click")
         self.browser.execute_script("arguments[0].click();", element)
+
+    def js_focus(self) -> None:
+        element = self.wait_for_presence()
+        Logger.info(f"{self}: js focus in element: '{element}'")
+        self.browser.execute_script("arguments[0].focus()", element)
 
     def get_text(self) -> str:
         element = self.wait_for_presence()
@@ -115,19 +124,6 @@ class BaseElement:
         Logger.info(f"{self}: {self.__class__.__name__}: click right button in element: {element}")
         try:
             self._action_chains.context_click(element).perform()
-        except WebDriverException as err:
-            Logger.error(f"{self}: {err}")
-            raise
-
-    def move_slider_to_value(self, random_number: int) -> None:
-        Logger.info(f"{self}: {self.__class__.__name__}: random place in the rang, element: {random_number}")
-        try:
-            step = random_number * 2
-            steps = 0
-            Logger.info(f"Moving slider to target value: {random_number}")
-            while steps < step:
-                steps += 1
-                self._action_chains.send_keys(Keys.RIGHT).perform()
         except WebDriverException as err:
             Logger.error(f"{self}: {err}")
             raise

@@ -1,5 +1,4 @@
 from selenium.common import WebDriverException
-
 from elements.base_element import BaseElement
 from logger.logger import Logger
 
@@ -37,12 +36,14 @@ class Input(BaseElement):
         Logger.info(f"{self}: js send keys = '{keys}'")
         self.browser.execute_script("arguments[0].value='arguments[1]'", element, keys)
 
-    def js_focus(self) -> None:
-        element = self.wait_for_presence()
-        Logger.info(f"{self}: js focus in element: '{element}'")
-        self.browser.execute_script("arguments[0].focus()", element)
-
     def send_keys_to_hidden_input(self, keys: str) -> None:
         element = self.wait_for_presence()
         Logger.info(f"{self}: send keys from invisibility input = '{keys}'")
         element.send_keys(keys)
+
+    def upload_file(self, file_path: str) -> None:
+        Logger.info(f"{self.__class__.__name__}: download file")
+        upload_file = self.wait_for_visible()
+
+        Logger.info(f"{self}: upload file = '{file_path}'")
+        upload_file.send_keys(file_path)

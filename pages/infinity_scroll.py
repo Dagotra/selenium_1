@@ -10,8 +10,8 @@ from selenium.webdriver.common.by import By
 
 class InfiniteScrollPage(BasePage):
     UNIQUE_ELEMENT_LOC = By.ID, "content"
-    ALL_PARAGRAPH_ELEMENT_LOC = By.XPATH, '(//div[@class="jscroll-added"])'
-    LOAD_BAR_LOC = By.XPATH, "//div[@class='jscroll-loading']//small[contains(text(), 'Loading')]"
+    ALL_PARAGRAPH_ELEMENT_LOC = By.XPATH, '//div[contains(@class, "jscroll-added")]'
+    LOAD_BAR_LOC = By.XPATH, "//div[contains(@class='jscroll-loading')]//small[contains(text(), 'Loading')]"
 
     def __init__(self, browser: Browser) -> None:
         super().__init__(browser)
@@ -27,6 +27,11 @@ class InfiniteScrollPage(BasePage):
             self.LOAD_BAR_LOC,
             description="Infinite scroll page -> wait visibility/not visibility load bar"
         )
+        self.all_paragraph = WebElement(
+            self.browser,
+            self.ALL_PARAGRAPH_ELEMENT_LOC,
+            description="Infinite scroll page -> scroll one step"
+        )
 
     def parse_paragraph(self) -> int:
         html = self.browser.get_page_source()
@@ -35,9 +40,10 @@ class InfiniteScrollPage(BasePage):
         return len(rows)
 
     def scroll_one_step(self) -> None:
-        self.browser.scroll_into_view_last(self.ALL_PARAGRAPH_ELEMENT_LOC, self.LOAD_BAR_LOC)
+        paragraph = self.all_paragraph.wait_for_visible_all_elements()[-1]
+        self.browser.execute_script("arguments[0].scrollIntoView();", paragraph)
 
-    def scroll_until_age(self, age: int) -> None:
+    def scroll_until_age(self, age: int) -> int:
         current = self.parse_paragraph()
         while current < age:
             try:
@@ -46,3 +52,4 @@ class InfiniteScrollPage(BasePage):
             except TimeoutException as err:
                 Logger.error(f"{self}: {err}")
                 raise
+        return current

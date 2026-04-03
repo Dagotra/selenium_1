@@ -38,9 +38,6 @@ class Browser:
         Logger.info(f"{self}: close window handle = '{self._driver.current_window_handle}'")
         self._driver.close()
 
-    # def quit(self) -> None:
-    #     self._driver.quit()
-
     def get_alert_text(self) -> str:
         self.switch_to_alert()
         Logger.info(f"{self.__class__.__name__}: get alert text")
@@ -72,19 +69,6 @@ class Browser:
             Logger.error(f"{self}: {err}")
             raise
 
-    def wait_visibility(self, locator: tuple[str, str]) -> None:
-        self._wait.until(EC.visibility_of_element_located(locator))
-
-    def wait_not_visibility(self, locator: tuple[str, str]) -> None:
-        self._wait.until_not(EC.visibility_of_element_located(locator))
-
-    def wait_visibility_all_elements(self, locator: tuple[str, str]):
-        return self._wait.until(EC.visibility_of_all_elements_located(locator))
-
-    def get_text_from_element(self, locator: tuple[str, str]) -> str:
-        text = self._wait.until(EC.visibility_of_element_located(locator))
-        return text.text
-
     def execute_script(self, script: str, *args) -> None:
         Logger.info(f"{self.__class__.__name__}: execute script = '{script}' with args = '{args}'")
         try:
@@ -93,7 +77,7 @@ class Browser:
             Logger.error(f"{self}: {err}")
             raise
 
-    def go_back_to_previous_page(self) -> None:
+    def go_back(self) -> None:
         Logger.info(f"{self.__class__.__name__}: go back to the previous page")
         self._driver.back()
 
@@ -112,7 +96,7 @@ class Browser:
         first_tab = (self.get_list_tab_window())[0]
         self._driver.switch_to.window(first_tab)
 
-    def switch_to_any_tab(self, number_tab: int) -> None:
+    def switch_to_number_tab(self, number_tab: int) -> None:
         Logger.info(f"{self.__class__.__name__}: switch to any tab")
         any_tab = (self.get_list_tab_window())[number_tab - 1]
         Logger.info(f"{self.__class__.__name__}: switched to '{number_tab}' tab")
@@ -127,38 +111,18 @@ class Browser:
         Logger.info(f"{self.__class__.__name__}: get name title")
         return self._driver.title
 
-    def close_tab(self) -> None:
-        Logger.info(f"{self.__class__.__name__}: close tab")
-        self.close()
-        Logger.info(f"Current tab is closed")
-
     def wait_for_url_to_be(self, url: str) -> None:
         Logger.info(f"{self.__class__.__name__}: wait for url to be")
         self._wait.until(EC.url_to_be(url))
 
-    def default_content(self) -> None:
-        Logger.info(f"{self.__class__.__name__}: default content")
+    def switch_to_default_content(self) -> None:
+        Logger.info(f"{self.__class__.__name__}: switch to default content")
         self._driver.switch_to.default_content()
 
-    def wait_and_switch_to_frame(self, locator: tuple[str, str]) -> None:
+    def wait_and_switch_to_frame(self, element_wrapper) -> None:
         Logger.info(f"{self.__class__.__name__}: wait and switch to frame")
-        self._wait.until(EC.frame_to_be_available_and_switch_to_it(locator))
-
-    def scroll_into_view_last (self, locator: tuple[str, str], load_bar: tuple[str, str]) -> None:
-        Logger.info(f"{self.__class__.__name__}: scroll to last element")
-        last = self.wait_visibility_all_elements(locator)[-1]
-        self.execute_script("arguments[0].scrollIntoView();", last)
-        try:
-            self.wait_visibility(load_bar)
-            self.wait_not_visibility(load_bar)
-        except TimeoutException as err:
-            Logger.error(f'{self}: {err}')
+        self._wait.until(EC.frame_to_be_available_and_switch_to_it(element_wrapper.locator))
 
     def get_page_source(self) -> str:
         Logger.info(f"{self.__class__.__name__}: get page source")
         return self._driver.page_source
-
-    def upload_file(self, locator: tuple[str, str], file_path: str) -> None:
-        Logger.info(f"{self.__class__.__name__}: download file")
-        upload_file = self._wait.until(EC.visibility_of_element_located(locator))
-        upload_file.send_keys(file_path)

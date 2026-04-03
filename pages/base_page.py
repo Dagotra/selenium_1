@@ -4,7 +4,6 @@ from logger.logger import Logger
 
 class BasePage:
     UNIQUE_ELEMENT_LOC = None
-    UNIQUE_ELEMENT_FILE_UPLOADED_LOC = None
 
     def __init__(self, browser: Browser) -> None:
         self.browser = browser
@@ -19,12 +18,6 @@ class BasePage:
             f"тип элемента: '{self.UNIQUE_ELEMENT_LOC[0]}'"  # noqa
         )
 
-    def wait_for_open_uploaded(self) -> None:
-        self.unique_element_file_uploaded.wait_for_presence()
-        Logger.info(
-            f"Страница '{self.name_page}' - успешно открыта, найден уникальный элемент "
-            f"'{self.UNIQUE_ELEMENT_FILE_UPLOADED_LOC[1]}', тип элемента: '{self.UNIQUE_ELEMENT_FILE_UPLOADED_LOC[0]}'"  # noqa
-        )
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.name_page}]"

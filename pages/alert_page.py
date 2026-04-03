@@ -7,9 +7,10 @@ from pages.base_page import BasePage
 
 class AlertPage(BasePage):
     UNIQUE_ELEMENT_LOC = By.ID, "content"
-    BUTTON_JS_ALERT_LOC = By.XPATH, "//button[@onclick='jsAlert()']"
-    BUTTON_JS_CONFIRM_LOC = By.XPATH, "//button[@onclick='jsConfirm()']"
-    BUTTON_JS_PROMPT_LOC = By.XPATH, "//button[@onclick='jsPrompt()']"
+    BUTTON_JS_LOC = "//button[@onclick='{}']"
+    JS_ALERT = "jsAlert()"
+    JS_CONFIRM = "jsConfirm()"
+    JS_PROMPT = "jsPrompt()"
     RESULT_LOC = By.ID, "result"
 
     def __init__(self, browser):
@@ -20,50 +21,45 @@ class AlertPage(BasePage):
             self.UNIQUE_ELEMENT_LOC,
             description="Alert page -> unique content"
         )
-        self.js_alert = Button(
-            self.browser,
-            self.BUTTON_JS_ALERT_LOC,
-            description="Alert page -> click js alert button"
-        )
-        self.js_confirm = Button(
-            self.browser,
-            self.BUTTON_JS_CONFIRM_LOC,
-            description="Alert page -> click js confirm button"
-        )
-        self.js_prompt = Button(
-            self.browser,
-            self.BUTTON_JS_PROMPT_LOC,
-            description="Alert page -> click js prompt button"
-        )
         self.text_result = WebElement(
             self.browser,
             self.RESULT_LOC,
             description="Alert page -> text Result"
         )
 
-    def get_js_alert_text(self) -> str:
-        self.js_alert.click()
-        return self.browser.get_alert_text()
+    def click_button(self, name_button):
+        button = Button(
+            self.browser,
+            self.BUTTON_JS_LOC.format(name_button),
+            description=f"Alert page -> click button: '{name_button}'"
+        )
+        button.click()
 
-    def get_js_confirm_text(self) -> str:
-        self.js_confirm.click()
-        return self.browser.get_alert_text()
+    def click_js_button(self, name_button):
+        js_button = Button(
+            self.browser,
+            self.BUTTON_JS_LOC.format(name_button),
+            description=f"Alert page -> click js button: '{name_button}'"
+        )
+        js_button.js_click()
 
-    def get_js_prompt_text(self) -> str:
-        self.js_prompt.click()
-        return self.browser.get_alert_text()
+    def click_alert_button(self) -> None:
+        self.click_button(self.JS_ALERT)
 
-    def get_js_method_alert_text(self) -> str:
-        self.js_alert.js_click()
-        return self.browser.get_alert_text()
+    def click_confirm_button(self) -> None:
+        self.click_button(self.JS_CONFIRM)
 
-    def get_js_method_confirm_text(self) -> str:
-        self.js_confirm.js_click()
-        return self.browser.get_alert_text()
+    def click_prompt_button(self) -> None:
+        self.click_button(self.JS_PROMPT)
 
-    def get_js_method_prompt_text(self) -> str:
-        self.js_prompt.js_click()
-        return self.browser.get_alert_text()
+    def click_js_alert_button(self) -> None:
+        self.click_js_button(self.JS_ALERT)
+
+    def click_js_confirm_button(self) -> None:
+        self.click_js_button(self.JS_CONFIRM)
+
+    def click_js_prompt_button(self) -> None:
+        self.click_js_button(self.JS_PROMPT)
 
     def get_text_result(self) -> str:
         return self.text_result.get_text()

@@ -11,6 +11,7 @@ class NestedFramesPage(BasePage):
     NESTED_CHILD_FRAME_LOC = By.XPATH, "//iframe[@srcdoc='<p>Child Iframe</p>']"
     IFRAME_TEXT_LOC = By.XPATH, "//p"
     PARENT_FRAME_TEXT_LOC = By.XPATH, "//body"
+    NESTED_FRAMES1_LOC = By.ID, "frame1"
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -35,6 +36,16 @@ class NestedFramesPage(BasePage):
             self.PARENT_FRAME_TEXT_LOC,
             description="Nested Frames page -> get parent frame text"
         )
+        self.nested_frame1 = WebElement(
+            self.browser,
+            self.NESTED_FRAMES1_LOC,
+            description="Frame page -> frame 1"
+        )
+        self.child_iframe = WebElement(
+            self.browser,
+            self.NESTED_CHILD_FRAME_LOC,
+            description="Nested Frames page -> child iframe"
+        )
 
     def click_button_frames(self) -> None:
         self.button_frames.click()
@@ -46,7 +57,7 @@ class NestedFramesPage(BasePage):
         return self.text_parent_frame.get_text()
 
     def wait_and_switch_to_frame1(self) -> None:
-        self.browser.wait_and_switch_to_frame("frame1")
+        self.browser.wait_and_switch_to_frame(self.nested_frame1)
 
     def wait_and_switch_to_child_iframe(self) -> None:
-        self.browser.wait_and_switch_to_frame(self.NESTED_CHILD_FRAME_LOC)
+        self.browser.wait_and_switch_to_frame(self.child_iframe)

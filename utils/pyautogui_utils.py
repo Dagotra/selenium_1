@@ -9,24 +9,27 @@ from logger.logger import Logger
 
 class PyAutoGUIUtilities:
     @staticmethod
-    def get_platform_system() -> bool:
+    def get_platform_system() -> str:
         Logger.debug(f"Проверяется операционная система на ПК")
         operation_system = platform.system()
         Logger.debug(f"Операционная система на ПК {operation_system}")
-        if operation_system == "Window" or "Linux":
-            return True
-        return False
+        return operation_system
 
     @staticmethod
     def upload_file(file_path: str) -> None:
         Logger.info("Обработка диалогового окна загрузки файла.")
-        time.sleep(1)
+        time.sleep(2)
         pyperclip.copy(file_path)
-        if PyAutoGUIUtilities.get_platform_system():
+        Logger.info(f"'{file_path}' путь скопирован в буфер обмена.")
+        system_name = PyAutoGUIUtilities.get_platform_system()
+        time.sleep(1)
+        Logger.info(f"ПРОВЕРЬ РАССКАЛДКУ, ДОЛЖНА БЫТЬ НА 'EN'")
+        if system_name in ("Windows", "Linux"):
             pyautogui.hotkey("ctrl", "v")
+            Logger.info(f"OC: {system_name}, применяем клавиши 'ctrl + v'")
         else:
             pyautogui.hotkey("Command", "v")
-        Logger.info(f"'{file_path}' копируется в поле поиска диалогового окна.")
-        Logger.info("Нажимаем 'Enter'")
-        pyautogui.hotkey("enter")
+            Logger.info(f"OC: {system_name}, применяем клавиши 'Command + v'")
         time.sleep(1)
+        Logger.info("Нажимаем 'Enter'")
+        pyautogui.press("enter")
