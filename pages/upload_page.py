@@ -57,7 +57,7 @@ class UploadPage(BasePage):
         self.file_submit_button.click()
 
     def upload_file_via_file_input(self, file_path: str) -> None:
-        self.file_upload_button.upload_file(file_path)
+        self.file_upload_button.send_keys(file_path)
 
     def get_text_file_uploaded(self) -> str:
         return self.text_file_uploaded.get_text()

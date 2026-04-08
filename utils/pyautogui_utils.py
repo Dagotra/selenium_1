@@ -8,12 +8,6 @@ from logger.logger import Logger
 
 
 class PyAutoGUIUtilities:
-    @staticmethod
-    def get_platform_system() -> str:
-        Logger.debug(f"Проверяется операционная система на ПК")
-        operation_system = platform.system()
-        Logger.debug(f"Операционная система на ПК {operation_system}")
-        return operation_system
 
     @staticmethod
     def upload_file(file_path: str) -> None:
@@ -21,9 +15,12 @@ class PyAutoGUIUtilities:
         time.sleep(2)
         pyperclip.copy(file_path)
         Logger.info(f"'{file_path}' путь скопирован в буфер обмена.")
-        system_name = PyAutoGUIUtilities.get_platform_system()
+
+        Logger.debug(f"Проверяется операционная система на ПК")
+        system_name = platform.system()
+        Logger.debug(f"Операционная система на ПК {system_name}")
+
         time.sleep(1)
-        Logger.info(f"ПРОВЕРЬ РАССКАЛДКУ, ДОЛЖНА БЫТЬ НА 'EN'")
         if system_name in ("Windows", "Linux"):
             pyautogui.hotkey("ctrl", "v")
             Logger.info(f"OC: {system_name}, применяем клавиши 'ctrl + v'")

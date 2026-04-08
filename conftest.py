@@ -1,6 +1,5 @@
 import os
 import tempfile
-import time
 
 import pytest
 from browser.browser_factory import BrowserFactory
@@ -34,15 +33,13 @@ def upload_test_file_path_remove():
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt", encoding="utf-8") as f:
         path_to_file = f.name
         file_name = os.path.basename(path_to_file)
+
         Logger.info(f"Создаем временный файл: '{file_name}' и путь к нему '{path_to_file}'")
         f.write("test file")
     yield path_to_file
-    try:
-        Logger.info(f"Удаляем файл '{file_name}', путь к файлу '{path_to_file}'")
-        os.remove(path_to_file)
-    except PermissionError as err:
-        Logger.error(f"Ошибка: {err}, вторая попытка удаления файла '{file_name}'")
-        time.sleep(2)
-        os.remove(path_to_file)
+
+    Logger.info(f"Удаляем файл '{file_name}', путь к файлу '{path_to_file}'")
+    os.remove(path_to_file)
+
 
 

@@ -17,8 +17,10 @@ class SliderElement(Input):
         Logger.info(f"move slider '{move}' times")
         self._action_chains.send_keys(Keys.LEFT * move).perform()
 
-    def set_value(self, value: float, step: float, target_value: float) -> float:
+    def set_value(self, target_value: float) -> float:
         Logger.info(f"{self}: {self.__class__.__name__}: set the slider value'")
+        value = float(self.get_attribute("value"))
+        step = float(self.get_attribute("step"))
         move = 1 / step
         differance = int(abs(target_value - value) * move)
         if value < target_value:

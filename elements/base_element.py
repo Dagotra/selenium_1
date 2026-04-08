@@ -136,3 +136,7 @@ class BaseElement:
         except WebDriverException as err:
             Logger.error(f"{self}: {err}")
             raise
+
+    def scroll_into_view(self) -> None:
+        result = self.wait_for_visible()
+        self.browser.execute_script("arguments[0].scrollIntoView();", result)

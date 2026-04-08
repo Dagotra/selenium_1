@@ -40,10 +40,3 @@ class Input(BaseElement):
         element = self.wait_for_presence()
         Logger.info(f"{self}: send keys from invisibility input = '{keys}'")
         element.send_keys(keys)
-
-    def upload_file(self, file_path: str) -> None:
-        Logger.info(f"{self.__class__.__name__}: download file")
-        upload_file = self.wait_for_visible()
-
-        Logger.info(f"{self}: upload file = '{file_path}'")
-        upload_file.send_keys(file_path)

@@ -48,6 +48,5 @@ class HorizontalSliderPage(BasePage):
         )
 
     def set_slider_value(self, target_value: float) -> str:
-        attrs = self.get_values()
-        result = self.slider_input.set_value(attrs.value, attrs.step, target_value)
+        result = self.slider_input.set_value(target_value)
         return f"{result:g}"

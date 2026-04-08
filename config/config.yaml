@@ -4,4 +4,4 @@ app:
 browser:
   name: "chrome"
   headless: false
-  arguments: "--start-maximized"
+  arguments: "--window-size=1920,1080"
