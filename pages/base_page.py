@@ -9,7 +9,6 @@ class BasePage:
         self.browser = browser
         self.name_page = None
         self.unique_element = None
-        self.unique_element_file_uploaded = None
 
     def wait_for_open(self) -> None:
         self.unique_element.wait_for_presence()

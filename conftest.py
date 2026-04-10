@@ -15,9 +15,10 @@ def driver():
     driver.quit()
     Logger.info("Сессия закрыта")
 
-"""Создание и удаление файла в папке Pytest-а tmp_path"""
+
 @pytest.fixture
 def upload_test_file_path(tmp_path) -> str:
+    """Создание и удаление файла в папке Pytest-а tmp_path"""
     file_name = "text_file.txt"
     file_path = tmp_path / file_name
     Logger.info(f"Создаем временный файл: '{file_name}' и путь к нему '{file_path}' ")
@@ -27,9 +28,10 @@ def upload_test_file_path(tmp_path) -> str:
     return str(file_path)
 
 
-"""Классическое создание и удаление временного файла в temp"""
+
 @pytest.fixture(scope="function")
 def upload_test_file_path_remove():
+    """Классическое создание и удаление временного файла в temp"""
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".txt", encoding="utf-8") as f:
         path_to_file = f.name
         file_name = os.path.basename(path_to_file)

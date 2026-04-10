@@ -68,9 +68,6 @@ class BaseElement:
     def wait_for_not_visible(self) -> None:
         self._wait_for_not(expected_condition=expected_conditions.visibility_of_element_located)
 
-    def wait_for_visible_all_elements(self) -> list[WebElement]:
-        return self._wait.until(expected_conditions.visibility_of_all_elements_located(self.locator))
-
     def is_exists(self) -> bool:
         try:
             self._wait.until(expected_conditions.presence_of_element_located(self.locator))

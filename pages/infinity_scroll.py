@@ -26,15 +26,15 @@ class InfiniteScrollPage(BasePage):
             self.LOAD_BAR_LOC,
             description="Infinite scroll page -> wait visibility/not visibility load bar"
         )
-
-    def get_list_web_elements(self) -> list[WebElement]:
-        mw = MultiWebElement(
+        self.list_web_elements = MultiWebElement(
             self.browser,
             self.MULTI_ALL_PARAGRAPH_ELEMENT_LOC,
             description="Infinite scroll page -> checking visible elements",
         )
+
+    def get_list_web_elements(self) -> list[WebElement]:
         list_element = []
-        for index, web_element in enumerate(mw):
+        for index, web_element in enumerate(self.list_web_elements):
             list_element.append(web_element)
 
         Logger.info(f"Get list WebElements: {list_element}")

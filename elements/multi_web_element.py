@@ -27,13 +27,16 @@ class MultiWebElement:
             self.browser,
             self.formattable_xpath.format(self.index),
             f"{self.description}:[{self.index}]",
-            timeout=0.2
+            self.timeout
         )
+        if self.index > 1:
+            self.timeout = 0
+
         if not current_element.is_exists():
             raise StopIteration
-        else:
-            self.index += 1
-            return current_element
+
+        self.index += 1
+        return current_element
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.description}]"
