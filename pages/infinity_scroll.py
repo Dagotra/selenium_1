@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium.common import TimeoutException
-
 from browser.browser import Browser
-from elements.demo import DemoMulti
 from elements.multi_web_element import MultiWebElement
 from elements.web_element import WebElement
 from logger.logger import Logger
@@ -23,20 +21,28 @@ class InfiniteScrollPage(BasePage):
             self.UNIQUE_ELEMENT_LOC,
             description="Infinite scroll page -> unique element"
         )
-        self.load_bar = WebElement(
+        self.load_bar = WebElement(  # в дальнейшем может пригодиться
             self.browser,
             self.LOAD_BAR_LOC,
             description="Infinite scroll page -> wait visibility/not visibility load bar"
         )
-        self.multi_all_element = DemoMulti(
+
+    def get_list_web_elements(self) -> list[WebElement]:
+        mw = MultiWebElement(
             self.browser,
             self.MULTI_ALL_PARAGRAPH_ELEMENT_LOC,
-            description="Infinite scroll page -> scroll one step"
+            description="Infinite scroll page -> checking visible elements",
         )
+        list_element = []
+        for index, web_element in enumerate(mw):
+            list_element.append(web_element)
 
-    def scroll_one_step(self):
-        last_paragraph = self.multi_all_element.last_element()
-        last_paragraph.scroll_into_view()
+        Logger.info(f"Get list WebElements: {list_element}")
+        return list_element
+
+    def scroll_last_visibly_web_element(self) -> None:
+        last_element = self.get_list_web_elements()[-1]
+        last_element.scroll_into_view()
 
     def parse_paragraph(self) -> int:
         html = self.browser.get_page_source()
@@ -48,7 +54,7 @@ class InfiniteScrollPage(BasePage):
         current = self.parse_paragraph()
         while current < age:
             try:
-                self.scroll_one_step()
+                self.scroll_last_visibly_web_element()
                 current = self.parse_paragraph()
             except TimeoutException as err:
                 Logger.error(f"{self}: {err}")

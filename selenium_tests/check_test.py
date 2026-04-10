@@ -259,7 +259,7 @@ def test_handlers(driver):
     isp.wait_for_open()
     isp.click_button_click_here()
 
-    br.switch_to_number_tab(2)
+    br.switch_to_number_tab(1)
     assert actual_name_new_title == expected_name_new_title, (
         f"Ожидаемый результат: '{expected_name_new_title}'. "
         f"Фактический результат: '{actual_name_new_title}'."
@@ -349,14 +349,15 @@ def test_dynamic_content(driver):
 def test_infinity_scroll(driver):
     Logger.info(f"Запускаем тест: '{test_infinity_scroll.__name__}'")
     url_infinite_scroll = "http://the-internet.herokuapp.com/infinite_scroll"
-    age = 40
+    age = 10
     br = Browser(driver)
     ifs = InfiniteScrollPage(br)
 
     br.get(url_infinite_scroll)
     ifs.wait_for_open()
-    ifs.scroll_one_step()
-    # ifs.scroll_one_step()
+
+    ifs.scroll_last_visibly_web_element()
+    ifs.parse_paragraph()
     ifs.scroll_until_age(age)
     expected_quantity_paragraph = ifs.parse_paragraph()
     assert age == expected_quantity_paragraph, (

@@ -98,7 +98,7 @@ class Browser:
 
     def switch_to_number_tab(self, number_tab: int) -> None:
         Logger.info(f"{self.__class__.__name__}: switch to any tab")
-        any_tab = (self.get_list_tab_window())[number_tab - 1]
+        any_tab = (self.get_list_tab_window())[number_tab]
         Logger.info(f"{self.__class__.__name__}: switched to '{number_tab}' tab")
         self._driver.switch_to.window(any_tab)
 

@@ -73,7 +73,7 @@ class BaseElement:
 
     def is_exists(self) -> bool:
         try:
-            self.wait_for_presence()
+            self._wait.until(expected_conditions.presence_of_element_located(self.locator))
             return True
         except TimeoutException:
             return False
@@ -138,5 +138,5 @@ class BaseElement:
             raise
 
     def scroll_into_view(self) -> None:
-        result = self.wait_for_visible()
-        self.browser.execute_script("arguments[0].scrollIntoView();", result)
+        native = self.wait_for_visible()
+        self.browser.execute_script("arguments[0].scrollIntoView();", native)
