@@ -16,21 +16,22 @@ class MultiWebElement:
         self.browser = browser
         self.formattable_xpath = formattable_xpath
         self.description = description if description else formattable_xpath.format("'i'")
-        self.timeout = timeout if timeout is not None else self.DEFAULT_TIME
+        self.first_timeout = timeout if timeout is not None else self.DEFAULT_TIME
+        self.next_time_out = 0
 
     def __iter__(self):
         self.index = 1
         return self
 
     def __next__(self) -> WebElement | None:
+        time_out = self.first_timeout if self.index == 1 else self.next_time_out
+
         current_element = WebElement(
             self.browser,
             self.formattable_xpath.format(self.index),
             f"{self.description}:[{self.index}]",
-            self.timeout
+            time_out
         )
-        if self.index > 1:
-            self.timeout = 0
 
         if not current_element.is_exists():
             raise StopIteration
