@@ -24,13 +24,13 @@ class MultiWebElement:
         return self
 
     def __next__(self) -> WebElement | None:
-        time_out = self.first_timeout if self.index == 1 else self.next_timeout
+        timeout = self.first_timeout if self.index == 1 else self.next_timeout
 
         current_element = WebElement(
             self.browser,
             self.formattable_xpath.format(self.index),
             f"{self.description}:[{self.index}]",
-            time_out
+            timeout
         )
 
         if not current_element.is_exists():
