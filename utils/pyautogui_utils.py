@@ -1,16 +1,23 @@
 import time
 import platform
+import os
 
-import pyautogui
 import pyperclip
 
 from logger.logger import Logger
 
 
 class PyAutoGUIUtilities:
+    @staticmethod
+    def _get_pyautogui():
+        if platform.system() == "Linux" and not os.environ.get("DISPLAY"):
+            raise RuntimeError("PyAutoGUI недоступен без DISPLAY. ")
+        import pyautogui
+        return pyautogui
 
     @staticmethod
     def upload_file(file_path: str) -> None:
+        pyautogui = PyAutoGUIUtilities._get_pyautogui()
         Logger.info("Обработка диалогового окна загрузки файла.")
         time.sleep(2)
         pyperclip.copy(file_path)

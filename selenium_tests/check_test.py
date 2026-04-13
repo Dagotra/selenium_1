@@ -386,7 +386,7 @@ def test_upload_image(driver, upload_test_file_path_remove):
         f"Фактический результат: '{actual_text}'."
     )
 
-
+@pytest.mark.gui
 def test_upload_image_plus_dialog_window(driver, upload_test_file_path_remove):
     Logger.info(f"Запускаем тест: '{test_upload_image_plus_dialog_window.__name__}'")
     url_upload = "http://the-internet.herokuapp.com/upload"

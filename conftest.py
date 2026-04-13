@@ -1,5 +1,6 @@
 import os
 import tempfile
+import time
 
 import pytest
 from browser.browser_factory import BrowserFactory
@@ -41,7 +42,15 @@ def upload_test_file_path_remove():
     yield path_to_file
 
     Logger.info(f"Удаляем файл '{file_name}', путь к файлу '{path_to_file}'")
-    os.remove(path_to_file)
+    for attempt in range(6):
+        try:
+            if os.path.exists(path_to_file):
+                os.remove(path_to_file)
+            break
+        except PermissionError:
+            if attempt == 5:
+                raise
+            time.sleep(0.3)
 
 
 
