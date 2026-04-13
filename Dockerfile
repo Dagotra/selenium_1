@@ -15,10 +15,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgtk-3-0 \
     fonts-liberation \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-RUN git clone https://github.com/Dagotra/selenium_1.git . && git checkout selenium_3
-RUN pip install --no-cache-dit -r requirements.txt
-EXPOSE 5000
+RUN git clone https://github.com/Dagotra/selenium_1.git repo && cd repo && git checkout selenium_3
+
+WORKDIR /app/repo
+RUN pip install --no-cache-dir -r requirements.txt
 CMD ["pytest", "-v", "-m", "not gui"]
