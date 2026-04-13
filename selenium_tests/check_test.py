@@ -387,26 +387,26 @@ def test_upload_image(driver, upload_test_file_path_remove):
     )
 
 
-# def test_upload_image_plus_dialog_window(driver, upload_test_file_path_remove):
-#     Logger.info(f"Запускаем тест: '{test_upload_image_plus_dialog_window.__name__}'")
-#     url_upload = "http://the-internet.herokuapp.com/upload"
-#     expected_symbol = "✔"
-#
-#     br = Browser(driver)
-#     up = UploadPage(br)
-#     pagui = PyAutoGUIUtilities()
-#
-#     br.get(url_upload)
-#     up.wait_for_open()
-#
-#     up.click_drag_and_drop_upload()
-#     pagui.upload_file(upload_test_file_path_remove)
-#     actual_symbol = up.get_text_success_mark()
-#
-#     assert expected_symbol == actual_symbol, (
-#         f"Ожидаемый результат: '{expected_symbol}'. "
-#         f"Фактический результат: '{actual_symbol}'."
-#     )
+def test_upload_image_plus_dialog_window(driver, upload_test_file_path_remove):
+    Logger.info(f"Запускаем тест: '{test_upload_image_plus_dialog_window.__name__}'")
+    url_upload = "http://the-internet.herokuapp.com/upload"
+    expected_symbol = "✔"
+
+    br = Browser(driver)
+    up = UploadPage(br)
+    pagui = PyAutoGUIUtilities()
+
+    br.get(url_upload)
+    up.wait_for_open()
+
+    up.click_drag_and_drop_upload()
+    pagui.upload_file(upload_test_file_path_remove)
+    actual_symbol = up.get_text_success_mark()
+
+    assert expected_symbol == actual_symbol, (
+        f"Ожидаемый результат: '{expected_symbol}'. "
+        f"Фактический результат: '{actual_symbol}'."
+    )
 
 
 def test_upload_image_plus_drag_n_drop(driver, upload_test_file_path_remove):
