@@ -1,3 +1,5 @@
+import sys
+
 import pytest
 
 from logger.logger import Logger
@@ -386,7 +388,7 @@ def test_upload_image(driver, upload_test_file_path_remove):
         f"Фактический результат: '{actual_text}'."
     )
 
-@pytest.mark.gui
+@pytest.mark.skipif(sys.platform == "linux", reason="Test is error in linux OS")
 def test_upload_image_plus_dialog_window(driver, upload_test_file_path_remove):
     Logger.info(f"Запускаем тест: '{test_upload_image_plus_dialog_window.__name__}'")
     url_upload = "http://the-internet.herokuapp.com/upload"

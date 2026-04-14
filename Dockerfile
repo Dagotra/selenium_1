@@ -16,8 +16,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-RUN git clone https://github.com/Dagotra/selenium_1.git repo && cd repo && git checkout selenium_3
-
-WORKDIR /app/repo
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["pytest", "-s", "-m", "not gui"]
+
+COPY . .
+
+CMD ["pytest", "-s"]
