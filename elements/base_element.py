@@ -135,5 +135,5 @@ class BaseElement:
             raise
 
     def scroll_into_view(self) -> None:
-        native = self.wait_for_visible()
+        native = self.wait_for_presence()
         self.browser.execute_script("arguments[0].scrollIntoView();", native)
