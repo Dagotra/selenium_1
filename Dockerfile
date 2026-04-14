@@ -22,4 +22,4 @@ RUN git clone https://github.com/Dagotra/selenium_1.git repo && cd repo && git c
 
 WORKDIR /app/repo
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["pytest", "-v", "-m", "not gui"]
+CMD ["pytest", "-s", "-m", "not gui"]
