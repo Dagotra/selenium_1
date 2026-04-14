@@ -3,7 +3,7 @@ app:
 
 browser:
   name: "chrome"
-  headless: false
+  headless: true
   window_size: "--window-size=1920,1080"
   arguments:
   - "--no-sandbox"
