@@ -16,14 +16,19 @@ class BrowserFactory:
     def get_driver(driver_name=AvailableNameDriver.CHROME) -> WebDriver:
         config = ConfigReader()
         options = Options()
-        options.add_argument(config.get("browser", "arguments"))
+
         headless = config.get("browser", "headless")
         if headless:
             options.add_argument("--headless=new")
+
         if os.path.exists("/.dockerenv"):
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
+            get_argument = config.get("browser", "arguments")
+            for argument in get_argument:
+                options.add_argument(argument)
+
             options.binary_location = "/usr/bin/chromium"
+
+        options.add_argument(config.get("browser", "window_size"))
         Logger.info(f"Создаем вебдрайвер '{driver_name}' c опциями '{options.arguments}'")
         driver = webdriver.Chrome(options=options)
         return driver

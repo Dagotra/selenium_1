@@ -3,5 +3,8 @@ app:
 
 browser:
   name: "chrome"
-  headless: true
-  arguments: "--window-size=1920,1080"
+  headless: false
+  window_size: "--window-size=1920,1080"
+  arguments:
+  - "--no-sandbox"
+  - "--disable-dev-shm-usage"
