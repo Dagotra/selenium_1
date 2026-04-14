@@ -16,7 +16,6 @@ class BrowserFactory:
     def get_driver(driver_name=AvailableNameDriver.CHROME) -> WebDriver:
         config = ConfigReader()
         options = Options()
-
         headless = config.get("browser", "headless")
         if headless:
             options.add_argument("--headless=new")
@@ -27,8 +26,9 @@ class BrowserFactory:
                 options.add_argument(argument)
 
             options.binary_location = "/usr/bin/chromium"
+        else:
+            options.add_argument(config.get("browser", "window_size"))
 
-        options.add_argument(config.get("browser", "window_size"))
         Logger.info(f"Создаем вебдрайвер '{driver_name}' c опциями '{options.arguments}'")
         driver = webdriver.Chrome(options=options)
         return driver
