@@ -8,3 +8,4 @@ browser:
   arguments:
   - "--no-sandbox"
   - "--disable-dev-shm-usage"
+  - "--disable-gpu"

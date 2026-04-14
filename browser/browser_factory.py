@@ -26,8 +26,8 @@ class BrowserFactory:
                 options.add_argument(argument)
 
             options.binary_location = "/usr/bin/chromium"
-        else:
-            options.add_argument(config.get("browser", "window_size"))
+
+        options.add_argument(config.get("browser", "window_size"))
 
         Logger.info(f"Создаем вебдрайвер '{driver_name}' c опциями '{options.arguments}'")
         driver = webdriver.Chrome(options=options)

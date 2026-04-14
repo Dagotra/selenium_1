@@ -10,10 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnss3 \
     libatk-bridge2.0-0 \
     libxss1 \
-    libasound2 \
     libgbm1 \
     libgtk-3-0 \
-    fonts-liberation \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
