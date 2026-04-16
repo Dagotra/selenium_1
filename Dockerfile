@@ -21,4 +21,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["pytest", "-s"]
+ENTRYPOINT ["pytest"]
+CMD ["-s"]
