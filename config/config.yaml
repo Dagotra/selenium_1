@@ -1,0 +1,11 @@
+app:
+  base_url: "https://store.steampowered.com/"
+
+browser:
+  name: "chrome"
+  headless: true
+  window_size: "--window-size=1920,1080"
+  arguments:
+  - "--no-sandbox"
+  - "--disable-dev-shm-usage"
+  - "--disable-gpu"
