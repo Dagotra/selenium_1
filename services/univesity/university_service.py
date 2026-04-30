@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from services.general.base_service import BaseService
+from services.general.models.success_response import SuccessResponse
 from services.univesity.helpers.grade_helper import GradeHelper
 from services.univesity.helpers.grade_stats_helper import GradeStatsHelper
 from services.univesity.helpers.group_helper import GroupHelper
@@ -48,17 +49,21 @@ class UniversityService(BaseService):
         response = self.grade_helper.post_grade(data=grade_request.model_dump())
         return GradeResponse(**response.json())
 
-    def delete_group(self, group_id: int | str) -> None:
-        self.group_helper.delete_group(group_id)
+    def delete_group(self, group_id: int | str) -> SuccessResponse:
+        response = self.group_helper.delete_group(group_id)
+        return SuccessResponse(**response.json())
 
-    def delete_student(self, student_id: int | str) -> None:
-        self.student_helper.delete_student(student_id)
+    def delete_student(self, student_id: int | str) -> SuccessResponse:
+        response = self.student_helper.delete_student(student_id)
+        return SuccessResponse(**response.json())
 
-    def delete_teacher(self, teacher_id: int | str) -> None:
-        self.teacher_helper.delete_teacher(teacher_id)
+    def delete_teacher(self, teacher_id: int | str) -> SuccessResponse:
+        response = self.teacher_helper.delete_teacher(teacher_id)
+        return SuccessResponse(**response.json())
 
-    def delete_grade(self, grade_id: int | str) -> None:
-        self.grade_helper.delete_grade(grade_id)
+    def delete_grade(self, grade_id: int | str) -> SuccessResponse:
+        response = self.grade_helper.delete_grade(grade_id)
+        return SuccessResponse(**response.json())
 
     def get_grade_stats(self, grade_stats: GradeStatsRequest = None) -> GradeStatsResponse:
         response = self.grade_stats_helper.get_grades_stats(grade_stats)

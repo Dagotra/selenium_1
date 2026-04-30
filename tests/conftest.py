@@ -11,10 +11,13 @@ from services.univesity.models.group_request import GroupRequest
 from services.univesity.models.student_request import StudentRequest
 from services.univesity.models.teacher_request import TeacherRequest
 from services.univesity.university_service import UniversityService
+from services.univesity.models.two_grade_data import TwoGradeData
 from utils.api_utils import ApiUtils
 from faker import Faker
 
 faker = Faker()
+
+
 
 
 @pytest.fixture(scope="function", autouse=False)
@@ -112,7 +115,8 @@ def create_and_delete_teacher(university_api_utils_admin):
     teacher_last_name = teacher_response.last_name
     Logger.info(f"### Step-teacher 1. Create teacher with id: '{teacher_id}', last name: '{teacher_last_name}'")
     yield teacher_response
-    university_service.delete_teacher(teacher_response.id)
+    status = university_service.delete_teacher(teacher_response.id)
+    Logger.info(f"{status}")
     Logger.info(f"### Step-teacher 2. Delete teacher with id: '{teacher_id}', last name: '{teacher_last_name}'")
 
 
@@ -129,3 +133,56 @@ def create_and_delete_grade(university_api_utils_admin, create_and_delete_teache
     yield grade_response
     university_service.delete_grade(grade_id)
     Logger.info(f"### Step-grade 2. Delete grade with id: '{grade_id}'")
+
+
+@pytest.fixture(scope="function", autouse=False)
+def create_two_grades(university_api_utils_admin, create_and_delete_student):
+    """Создает оценки у двух разных учителей и студентов """
+    university_service = UniversityService(api_utils=university_api_utils_admin)
+    teacher_1 = TeacherRequest(first_name="one" + faker.first_name(),
+                               last_name="one" + faker.last_name(),
+                               subject=random.choice([subject for subject in SubjectEnum]))
+    teacher_id_1 = university_service.create_teacher(teacher_request=teacher_1).id
+    Logger.info(f"### Step-teacher 1.1: Create one teacher with id: {teacher_id_1}")
+
+    student_id_1 = create_and_delete_student.id
+    Logger.info(f"### Step-student 1.2: Create one student with id: {student_id_1}")
+    teacher_2 = TeacherRequest(first_name="two" + faker.first_name(),
+                               last_name="two" + faker.last_name(),
+                               subject=random.choice([subject for subject in SubjectEnum]))
+    one_grade = GradeRequest(teacher_id=teacher_id_1,
+                             student_id=student_id_1,
+                             grade=random.randint(0, 5))
+
+    grade_1 = university_service.create_grade(grade_request=one_grade)
+    Logger.info(f"### Step-grade 1.3: Create one grade with id: {grade_1.id}")
+
+    teacher_id_2 = university_service.create_teacher(teacher_request=teacher_2).id
+    Logger.info(f"### Step-teacher 1.4: Create two teacher with id: {teacher_id_2}")
+    two_grade = GradeRequest(teacher_id=teacher_id_2,
+                             student_id=student_id_1,
+                             grade=random.randint(0, 5))
+
+    grade_2 = university_service.create_grade(grade_request=two_grade)
+
+    Logger.info(f"### Step-grade 1.5: Create two grade with id: {grade_2.id}")
+
+    yield TwoGradeData(
+        teacher_id_1=teacher_id_1,
+        teacher_id_2=teacher_id_2,
+        student_id=student_id_1,
+        grade_1=grade_1,
+        grade_2=grade_2,
+    )
+
+    Logger.info(f"### Step-grade 2.1 Delete one grade with id: '{grade_1.id}'")
+    university_service.delete_grade(grade_1.id)
+
+    Logger.info(f"### Step-grade 2.2. Delete two grade with id: '{grade_2.id}'")
+    university_service.delete_grade(grade_2.id)
+
+    Logger.info(f"### Step-teacher 2.3: Delete one teacher with id: {teacher_id_1}")
+    university_service.delete_teacher(teacher_id_1)
+
+    Logger.info(f"### Step-teacher 2.4: Delete two teacher with id: {teacher_id_2}")
+    university_service.delete_teacher(teacher_id_2)
