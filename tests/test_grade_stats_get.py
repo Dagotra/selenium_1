@@ -24,6 +24,17 @@ class TestGradeStatsGet:
         assert stats_response.min is not None, f"The query filter returns '{stats_response.min}' values"
         assert stats_response.avg is not None, f"The query filter returns '{stats_response.avg}' values"
 
+    def test_avg_grades_student(self, university_api_utils_admin, create_two_grades: TwoGradeData):
+        university_service = UniversityService(api_utils=university_api_utils_admin)
+        student_id = create_two_grades.student_id
+        stats_student = GradeStatsRequest(student_id=student_id)
+        response = university_service.get_grade_stats(grade_stats=stats_student)
+        count_grade = 2
+        grade_1 = create_two_grades.grade_1.grade
+        grade_2 = create_two_grades.grade_2.grade
+        expected_avg = (grade_1 + grade_2) / count_grade
+        assert response.avg == expected_avg, f"Expected avg: '{expected_avg}', but got wrong avg: '{response.avg}'"
+
     def test_grade_stats_student(self, university_api_utils_admin, create_and_delete_grade: GradeResponse):
         university_service = UniversityService(api_utils=university_api_utils_admin)
         student = create_and_delete_grade.student_id
