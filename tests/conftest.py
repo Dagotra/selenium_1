@@ -11,13 +11,24 @@ from services.univesity.models.group_request import GroupRequest
 from services.univesity.models.student_request import StudentRequest
 from services.univesity.models.teacher_request import TeacherRequest
 from services.univesity.university_service import UniversityService
-from services.univesity.models.two_grade_data import TwoGradeData
 from utils.api_utils import ApiUtils
 from faker import Faker
 
+from tests.utils.soft_assert import SoftAssert
+
 faker = Faker()
 
+from services.univesity.models.grade_response import GradeResponse
+from dataclasses import dataclass
 
+
+@dataclass
+class TwoGradeData:
+    teacher_id_1: int
+    teacher_id_2: int
+    student_id: int
+    grade_1: GradeResponse
+    grade_2: GradeResponse
 
 
 @pytest.fixture(scope="function", autouse=False)
@@ -186,3 +197,10 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
 
     Logger.info(f"### Step-teacher 2.4: Delete two teacher with id: {teacher_id_2}")
     university_service.delete_teacher(teacher_id_2)
+
+
+@pytest.fixture(scope="function", autouse=False)
+def soft_assert():
+    sa = SoftAssert()
+    yield sa
+    sa.check()

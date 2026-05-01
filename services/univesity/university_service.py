@@ -9,7 +9,6 @@ from services.univesity.helpers.student_helper import StudentHelper
 from services.univesity.helpers.teacher_helper import TeacherHelper
 from services.univesity.models.grade_request import GradeRequest
 from services.univesity.models.grade_response import GradeResponse
-from services.univesity.models.grade_stats_request import GradeStatsRequest
 from services.univesity.models.grade_stats_response import GradeStatsResponse
 from services.univesity.models.group_request import GroupRequest
 from services.univesity.models.group_response import GroupResponse
@@ -65,6 +64,15 @@ class UniversityService(BaseService):
         response = self.grade_helper.delete_grade(grade_id)
         return SuccessResponse(**response.json())
 
-    def get_grade_stats(self, grade_stats: GradeStatsRequest = None) -> GradeStatsResponse:
-        response = self.grade_stats_helper.get_grades_stats(grade_stats)
+    def get_grade_stats(
+            self,
+            student_id: int | None = None,
+            teacher_id: int | None = None,
+            group_id: int | None = None
+    ) -> GradeStatsResponse:
+        response = self.grade_stats_helper.get_grades_stats(
+            student_id=student_id,
+            teacher_id=teacher_id,
+            group_id=group_id
+        )
         return GradeStatsResponse(**response.json())
