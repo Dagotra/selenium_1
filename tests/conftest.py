@@ -14,8 +14,6 @@ from services.univesity.university_service import UniversityService
 from utils.api_utils import ApiUtils
 from faker import Faker
 
-from tests.utils.soft_assert import SoftAssert
-
 faker = Faker()
 
 from services.univesity.models.grade_response import GradeResponse
@@ -197,10 +195,3 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
 
     Logger.info(f"### Step-teacher 2.4: Delete two teacher with id: {teacher_id_2}")
     university_service.delete_teacher(teacher_id_2)
-
-
-@pytest.fixture(scope="function", autouse=False)
-def soft_assert():
-    sa = SoftAssert()
-    yield sa
-    sa.check()

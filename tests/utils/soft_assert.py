@@ -10,9 +10,9 @@ class SoftAssert:
         if actual != expected:
             self._error.append(f"Expected: '{expected}', got actual: '{actual}'. {msg}")
 
-    def assert_range(self, value, min_value, max_value, msg=""):
-        if not min_value <= value <= max_value:
-            self._error.append(f"Value: {value} out of range [{min_value}, {max_value}]. {msg}")
+    def assert_true(self, condition, msg=""):
+        if not condition:
+            self._error.append(f"Expected value True, but got False. {msg}")
 
     def check(self):
         if self._error:
