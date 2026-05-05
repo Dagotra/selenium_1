@@ -4,6 +4,7 @@ from logger.logger import Logger
 from services.auth.auth_service import AuthService
 from services.auth.models.login_request import LoginRequest
 from services.auth.models.register_request import RegisterRequest
+from services.univesity.models.base_grade import MIN_GRADE, MAX_GRADE
 from services.univesity.models.base_student import DegreeEnum
 from services.univesity.models.base_teacher import SubjectEnum
 from services.univesity.models.grade_request import GradeRequest
@@ -21,12 +22,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class TwoGradeData:
+class ThreeGradeData:
     teacher_id_1: int
     teacher_id_2: int
     student_id: int
+    group_id: int
     grade_1: GradeResponse
     grade_2: GradeResponse
+    grade_3: GradeResponse
 
 
 @pytest.fixture(scope="function", autouse=False)
@@ -134,7 +137,7 @@ def create_and_delete_grade(university_api_utils_admin, create_and_delete_teache
     university_service = UniversityService(api_utils=university_api_utils_admin)
     grade = GradeRequest(teacher_id=create_and_delete_teacher.id,
                          student_id=create_and_delete_student.id,
-                         grade=random.randint(0, 5))
+                         grade=random.randint(MIN_GRADE, MAX_GRADE))
     grade_response = university_service.create_grade(grade_request=grade)
     grade_id = grade_response.id
 
@@ -145,7 +148,7 @@ def create_and_delete_grade(university_api_utils_admin, create_and_delete_teache
 
 
 @pytest.fixture(scope="function", autouse=False)
-def create_two_grades(university_api_utils_admin, create_and_delete_student):
+def create_three_grades(university_api_utils_admin, create_and_delete_student):
     """Создает оценки у двух разных учителей и студентов """
     university_service = UniversityService(api_utils=university_api_utils_admin)
     teacher_1 = TeacherRequest(first_name="one" + faker.first_name(),
@@ -154,6 +157,7 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
     teacher_id_1 = university_service.create_teacher(teacher_request=teacher_1).id
     Logger.info(f"### Step-teacher 1.1: Create one teacher with id: {teacher_id_1}")
 
+    group_id = create_and_delete_student.group_id
     student_id_1 = create_and_delete_student.id
     Logger.info(f"### Step-student 1.2: Create one student with id: {student_id_1}")
     teacher_2 = TeacherRequest(first_name="two" + faker.first_name(),
@@ -161,7 +165,7 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
                                subject=random.choice([subject for subject in SubjectEnum]))
     one_grade = GradeRequest(teacher_id=teacher_id_1,
                              student_id=student_id_1,
-                             grade=random.randint(0, 5))
+                             grade=random.randint(MIN_GRADE, MAX_GRADE))
 
     grade_1 = university_service.create_grade(grade_request=one_grade)
     Logger.info(f"### Step-grade 1.3: Create one grade with id: {grade_1.id}")
@@ -170,18 +174,28 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
     Logger.info(f"### Step-teacher 1.4: Create two teacher with id: {teacher_id_2}")
     two_grade = GradeRequest(teacher_id=teacher_id_2,
                              student_id=student_id_1,
-                             grade=random.randint(0, 5))
+                             grade=random.randint(MIN_GRADE, MAX_GRADE))
 
     grade_2 = university_service.create_grade(grade_request=two_grade)
 
     Logger.info(f"### Step-grade 1.5: Create two grade with id: {grade_2.id}")
 
-    yield TwoGradeData(
+    three_grade = GradeRequest(teacher_id=teacher_id_2,
+                             student_id=student_id_1,
+                             grade=random.randint(MIN_GRADE, MAX_GRADE))
+
+    grade_3 = university_service.create_grade(grade_request=three_grade)
+
+    Logger.info(f"### Step-grade 1.6: Create three grade with id: {grade_2.id}")
+
+    yield ThreeGradeData(
         teacher_id_1=teacher_id_1,
         teacher_id_2=teacher_id_2,
         student_id=student_id_1,
+        group_id=group_id,
         grade_1=grade_1,
         grade_2=grade_2,
+        grade_3=grade_3
     )
 
     Logger.info(f"### Step-grade 2.1 Delete one grade with id: '{grade_1.id}'")
@@ -190,8 +204,11 @@ def create_two_grades(university_api_utils_admin, create_and_delete_student):
     Logger.info(f"### Step-grade 2.2. Delete two grade with id: '{grade_2.id}'")
     university_service.delete_grade(grade_2.id)
 
-    Logger.info(f"### Step-teacher 2.3: Delete one teacher with id: {teacher_id_1}")
+    Logger.info(f"### Step-grade 2.3. Delete three grade with id: '{grade_3.id}'")
+    university_service.delete_grade(grade_3.id)
+
+    Logger.info(f"### Step-teacher 2.4: Delete one teacher with id: {teacher_id_1}")
     university_service.delete_teacher(teacher_id_1)
 
-    Logger.info(f"### Step-teacher 2.4: Delete two teacher with id: {teacher_id_2}")
+    Logger.info(f"### Step-teacher 2.5: Delete two teacher with id: {teacher_id_2}")
     university_service.delete_teacher(teacher_id_2)
