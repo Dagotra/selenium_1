@@ -32,6 +32,14 @@ class ThreeGradeData:
     grade_3: GradeResponse
 
 
+@dataclass
+class TwoStudentData:
+    student_id_1: int
+    student_id_2: int
+    group_id_1: int
+    group_id_2: int
+
+
 @pytest.fixture(scope="function", autouse=False)
 def auth_api_utils_anonym():
     api_utils = ApiUtils(url=AuthService.SERVICE_URL)
@@ -181,8 +189,8 @@ def create_three_grades(university_api_utils_admin, create_and_delete_student):
     Logger.info(f"### Step-grade 1.5: Create two grade with id: {grade_2.id}")
 
     three_grade = GradeRequest(teacher_id=teacher_id_2,
-                             student_id=student_id_1,
-                             grade=random.randint(MIN_GRADE, MAX_GRADE))
+                               student_id=student_id_1,
+                               grade=random.randint(MIN_GRADE, MAX_GRADE))
 
     grade_3 = university_service.create_grade(grade_request=three_grade)
 
@@ -212,3 +220,121 @@ def create_three_grades(university_api_utils_admin, create_and_delete_student):
 
     Logger.info(f"### Step-teacher 2.5: Delete two teacher with id: {teacher_id_2}")
     university_service.delete_teacher(teacher_id_2)
+
+
+@pytest.fixture
+def group_factory(university_api_utils_admin):
+    university_service = UniversityService(api_utils=university_api_utils_admin)
+    created = []
+
+    def _create(name=None, **kwargs):
+        defaults = {"name": name or faker.word()}
+        defaults.update(kwargs)
+        response = university_service.create_group(group_request=GroupRequest(**defaults))
+        Logger.info(f"### Step-group 1. Create group with id: '{response.id}''")
+        created.append(response)
+
+        return response
+
+    yield _create
+
+    for i, g in enumerate(created):
+        try:
+            university_service.delete_group(group_id=g.id)
+            Logger.info(f"### Step-group {i + 1}. Delete group with id: '{g.id}''")
+        except Exception:
+            pass
+
+
+@pytest.fixture
+def student_factory(university_api_utils_admin, group_factory):
+    university_service = UniversityService(api_utils=university_api_utils_admin)
+    created = []
+
+    def _create(group_id=None, **kwargs):
+        if group_id is None:
+            group_id = group_factory().id
+        defaults = {
+            "first_name": faker.first_name(),
+            "last_name": faker.last_name(),
+            "email": faker.email(),
+            "degree": random.choice(list(DegreeEnum)),
+            "phone": faker.numerify("+7##########"),
+            "group_id": group_id
+        }
+        defaults.update(kwargs)
+        response = university_service.create_student(student_request=StudentRequest(**defaults))
+        Logger.info(f"### Step-student 1. Create student with id: '{response.id}'")
+
+        created.append(response)
+        return response
+
+    yield _create
+
+    for i, s in enumerate(created):
+        try:
+            university_service.delete_student(student_id=s.id)
+            Logger.info(f"### Step-student {i + 1}. Delete student with id: '{s.id}''")
+        except Exception:
+            pass
+
+
+@pytest.fixture
+def teacher_factory(university_api_utils_admin):
+    university_service = UniversityService(api_utils=university_api_utils_admin)
+    created = []
+
+    def _create(**kwargs):
+        defaults = {
+            "first_name": faker.first_name(),
+            "last_name": faker.last_name(),
+            "subject": random.choice(list(SubjectEnum))
+        }
+        defaults.update(kwargs)
+        response = university_service.create_teacher(teacher_request=TeacherRequest(**defaults))
+        Logger.info(f"### Step-teacher 1. Create teacher with id: '{response.id}'")
+        created.append(response)
+        return response
+
+    yield _create
+
+    for i, t in enumerate(created):
+        try:
+            university_service.delete_teacher(teacher_id=t.id)
+            Logger.info(f"### Step-teacher {i + 1}. Delete teacher with id: '{t.id}'")
+
+        except Exception:
+            pass
+
+
+@pytest.fixture
+def grade_factory(university_api_utils_admin, teacher_factory, student_factory):
+    university_service = UniversityService(api_utils=university_api_utils_admin)
+    created = []
+
+    def _create(teacher_id=None, student_id=None, **kwargs):
+        if teacher_id is None:
+            teacher_id = teacher_factory().id
+        if student_id is None:
+            student_id = student_factory().id
+        defaults = {
+            "teacher_id": teacher_id,
+            "student_id": student_id,
+            "grade": random.randint(MIN_GRADE, MAX_GRADE)
+        }
+
+        defaults.update(kwargs)
+        response = university_service.create_grade(grade_request=GradeRequest(**defaults))
+        Logger.info(f"### Step-grade 1: Create grade with id: '{response.id}', grade: {defaults['grade']}")
+        created.append(response)
+        return response
+
+    yield _create
+
+    for i, g in enumerate(created):
+        try:
+            university_service.delete_grade(grade_id=g.id)
+            Logger.info(f"### Step-grade {i + 1} Delete one grade with id: '{g.id}'")
+
+        except Exception:
+            pass
