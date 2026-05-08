@@ -239,11 +239,8 @@ def group_factory(university_api_utils_admin):
     yield _create
 
     for i, g in enumerate(created):
-        try:
-            university_service.delete_group(group_id=g.id)
-            Logger.info(f"### Step-group {i + 1}. Delete group with id: '{g.id}''")
-        except Exception:
-            pass
+        university_service.delete_group(group_id=g.id)
+        Logger.info(f"### Step-group {i + 1}. Delete group with id: '{g.id}''")
 
 
 @pytest.fixture
@@ -272,11 +269,8 @@ def student_factory(university_api_utils_admin, group_factory):
     yield _create
 
     for i, s in enumerate(created):
-        try:
-            university_service.delete_student(student_id=s.id)
-            Logger.info(f"### Step-student {i + 1}. Delete student with id: '{s.id}''")
-        except Exception:
-            pass
+        university_service.delete_student(student_id=s.id)
+        Logger.info(f"### Step-student {i + 1}. Delete student with id: '{s.id}''")
 
 
 @pytest.fixture
@@ -299,12 +293,8 @@ def teacher_factory(university_api_utils_admin):
     yield _create
 
     for i, t in enumerate(created):
-        try:
-            university_service.delete_teacher(teacher_id=t.id)
-            Logger.info(f"### Step-teacher {i + 1}. Delete teacher with id: '{t.id}'")
-
-        except Exception:
-            pass
+        university_service.delete_teacher(teacher_id=t.id)
+        Logger.info(f"### Step-teacher {i + 1}. Delete teacher with id: '{t.id}'")
 
 
 @pytest.fixture
@@ -332,9 +322,5 @@ def grade_factory(university_api_utils_admin, teacher_factory, student_factory):
     yield _create
 
     for i, g in enumerate(created):
-        try:
-            university_service.delete_grade(grade_id=g.id)
-            Logger.info(f"### Step-grade {i + 1} Delete one grade with id: '{g.id}'")
-
-        except Exception:
-            pass
+        university_service.delete_grade(grade_id=g.id)
+        Logger.info(f"### Step-grade {i + 1} Delete one grade with id: '{g.id}'")
