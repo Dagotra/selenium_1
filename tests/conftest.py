@@ -9,16 +9,15 @@ from services.univesity.models.base_student import DegreeEnum
 from services.univesity.models.base_teacher import SubjectEnum
 from services.univesity.models.grade_request import GradeRequest
 from services.univesity.models.group_request import GroupRequest
+from services.univesity.models.grade_response import GradeResponse
 from services.univesity.models.student_request import StudentRequest
 from services.univesity.models.teacher_request import TeacherRequest
 from services.univesity.university_service import UniversityService
 from utils.api_utils import ApiUtils
 from faker import Faker
+from dataclasses import dataclass
 
 faker = Faker()
-
-from services.univesity.models.grade_response import GradeResponse
-from dataclasses import dataclass
 
 
 @dataclass
