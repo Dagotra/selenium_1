@@ -16,7 +16,7 @@ jobs:
           args: "check ."
 
       - name: Start services with Docker Compose
-        working-directory: /docker_compose
+        working-directory: ./docker_compose
         run: docker compose up -d
 
       - name: Wait status 200 from services
@@ -38,5 +38,5 @@ jobs:
 
       - name: Cleanup
         if: always()
-        working-directory: /docker_compose
+        working-directory: ./docker_compose
         run: docker compose down -v
