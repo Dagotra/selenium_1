@@ -24,7 +24,7 @@ jobs:
           for port in 8000 8001; do
             echo "Waiting for port $port..."
             for i in {1..30}; do
-              if curl -sf "http://localhost:$port" > /dev/null 2>&1; then
+              if curl -sf "http://localhost:$port/docs" > /dev/null 2>&1; then
                 echo "Service on port $port is ready"
                 break
               fi
