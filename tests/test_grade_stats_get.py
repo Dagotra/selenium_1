@@ -128,14 +128,40 @@ class TestGradeStatsGet:
                                  msg=f"Wrong avg value grade, should be None from '{filter_name}'")
         soft_assert.check()
 
-    def test_get_stats_avg_grades_with_filters(
+    @pytest.mark.parametrize("student_idx", [0, 1])
+    def test_get_avg_grades_students(
+            self,
+            university_api_utils_admin,
+            student_factory,
+            teacher_factory,
+            grade_factory,
+            student_idx
+    ):
+        count_grades = 5
+        sa = SoftAssert()
+        students = [student_factory() for _ in range(2)]
+        teachers = [teacher_factory() for _ in range(2)]
+        university_service = UniversityService(api_utils=university_api_utils_admin)
+        target_student = students[student_idx]
+        target_teacher = teachers[student_idx]
+
+        grades = [grade_factory(teacher_id=target_teacher.id, student_id=target_student.id)
+                  for _ in range(count_grades)]
+        total_grade = sum(item.grade for item in grades)
+        expected1_avg = total_grade / count_grades
+        stats_student = university_service.get_grade_stats(student_id=target_student.id)
+
+        sa.assert_equal(stats_student.avg, expected1_avg,
+                        msg=f"For a student with id: '{target_student.id}' "
+                            f"actual value avg: '{stats_student.avg}', but expected: '{expected1_avg}'")
+
+    def test_get_avg_grades_groups(
             self,
             university_api_utils_admin,
             student_factory,
             teacher_factory,
             grade_factory
     ):
-        """Проверка avg оценок через фильтр студентов и групп"""
         count_grades = 5
         sa = SoftAssert()
         students = [student_factory() for i in range(2)]
@@ -143,10 +169,10 @@ class TestGradeStatsGet:
         university_service = UniversityService(api_utils=university_api_utils_admin)
         student1_id = students[0].id
         student2_id = students[1].id
-        group1_id = students[0].group_id
-        group2_id = students[1].group_id
         teacher1_id = teachers[0].id
         teacher2_id = teachers[1].id
+        group1_id = students[0].group_id
+        group2_id = students[1].group_id
 
         grades1 = [grade_factory(teacher_id=teacher1_id, student_id=student1_id) for i in range(count_grades)]
         total_grade1 = sum(item.grade for item in grades1)
@@ -161,12 +187,6 @@ class TestGradeStatsGet:
         stats1_group1 = university_service.get_grade_stats(group_id=group1_id)
         stats2_group2 = university_service.get_grade_stats(group_id=group2_id)
 
-        sa.assert_equal(stats1_student1.avg, expected1_avg,
-                        msg=f"For a student with id: '{student1_id}' "
-                            f"actual value avg: '{stats1_student1.avg}', but expected: '{expected1_avg}'")
-        sa.assert_equal(stats2_student2.avg, expected2_avg,
-                        msg=f"For a student with id: '{student2_id}' "
-                            f"actual value avg: '{stats2_student2.avg}', but expected: '{expected2_avg}'")
         sa.assert_equal(stats1_group1.avg, expected1_avg,
                         msg=f"For a group with id: '{group1_id}' "
                             f"actual value avg: '{stats1_student1.avg}', but expected: '{expected1_avg}'")
