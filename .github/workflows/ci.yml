@@ -49,12 +49,14 @@ jobs:
           api-tests tests/ -s
 
       - name: Generate Allure Report
+        if: always()
         run: |
           npm install -g allure-commandline
           sudo chown -R $USER:$USER allure-results
           allure generate ./allure-results -o ./allure-report --clean
 
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           publish_branch: gh-pages
