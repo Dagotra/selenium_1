@@ -1,0 +1,70 @@
+name: CI Pipeline
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Ruff linter
+        uses: astral-sh/ruff-action@v2
+        with:
+          args: "check ."
+
+      - name: Start services with Docker Compose
+        working-directory: ./docker_compose
+        run: docker compose up -d
+
+      - name: Wait status 200 from services
+        run: |
+          for port in 8000 8001; do
+            echo "Waiting for port $port..."
+            for i in {1..30}; do
+              if curl -sf "http://localhost:$port/docs" > /dev/null 2>&1; then
+                echo "Service on port $port is ready"
+                break
+              fi
+              if [ $i -eq 30 ]; then
+                echo "Port $port not ready after 30 attempts"
+                exit 1
+              fi
+              sleep 2
+            done
+          done
+
+      - name: Create image api-test
+        run: docker build -t api-tests .
+
+      - name: Run api-tests
+        run: |
+          mkdir -p allure-results
+          docker run --network host \
+          -v ${{ github.workspace }}/allure-results:/app/allure-results \
+          -e AUTH_URL=http://localhost:8000 \
+          -e UNIVERSITY_URL=http://localhost:8001 \
+          api-tests --alluredir=allure-results tests/ -s
+
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          npm install -g allure-commandline
+          sudo chown -R $USER:$USER allure-results
+          allure generate ./allure-results -o ./allure-report --clean
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./allure-report
+          keep_files: false
+
+      - name: Cleanup
+        if: always()
+        working-directory: ./docker_compose
+        run: docker compose down -v
