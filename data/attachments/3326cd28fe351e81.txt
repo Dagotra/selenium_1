@@ -1,0 +1,20 @@
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 154' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=steven84&password=KzOD4%28D%25I47qj_2Qu3%40Ex1%23DbWg%40Zt&password_repeat=KzOD4%28D%25I47qj_2Qu3%40Ex1%23DbWg%40Zt&email=lowejanet%40example.com' http://localhost:8000/auth/register/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.284279'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 67' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=steven84&password=KzOD4%28D%25I47qj_2Qu3%40Ex1%23DbWg%40Zt' http://localhost:8000/auth/login/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.312804'
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsInVzZXJuYW1lIjoic3RldmVuODQiLCJleHAiOjE3Nzg2Nzc5MjUsImlhdCI6MTc3ODY3MDcyNX0.I4tlJsdTsuD6tZeN6SMDENVCEAgNo78yO7nXO5yNpEoOpGovoDpZBkgW7Xogh2vm7u3LELYcxKqbE4I_TPRnJHUVkjnQd9vIToRSuKr5fGU1aAg0TC5NVzi3JcZ9gVmSwGZsfpi8TXWffzRjLedMqbNsgl1Y41ugOCOI2EPu-2Ma7zP5NvGcTcyDfYdgGQQT2QXcd6vjlsMrLcns3IxfBqNnXQarEbGoJjzKkJyflB6i3WB7_wiibtMa6XWpzV9njbgXsnnStr0g8W-xOGJuuIAd-lW8hiWS9_nuNkzVwz3JhYidnjJYXSX1ymqULk2Qw3aO2nqAKwEzSYGN902Grg",
+  "token_type": "Bearer"
+}
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsInVzZXJuYW1lIjoic3RldmVuODQiLCJleHAiOjE3Nzg2Nzc5MjUsImlhdCI6MTc3ODY3MDcyNX0.I4tlJsdTsuD6tZeN6SMDENVCEAgNo78yO7nXO5yNpEoOpGovoDpZBkgW7Xogh2vm7u3LELYcxKqbE4I_TPRnJHUVkjnQd9vIToRSuKr5fGU1aAg0TC5NVzi3JcZ9gVmSwGZsfpi8TXWffzRjLedMqbNsgl1Y41ugOCOI2EPu-2Ma7zP5NvGcTcyDfYdgGQQT2QXcd6vjlsMrLcns3IxfBqNnXQarEbGoJjzKkJyflB6i3WB7_wiibtMa6XWpzV9njbgXsnnStr0g8W-xOGJuuIAd-lW8hiWS9_nuNkzVwz3JhYidnjJYXSX1ymqULk2Qw3aO2nqAKwEzSYGN902Grg' 'http://localhost:8001/grades/stats/?group_id=9999999999'
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.008888'
+{
+  "count": 0,
+  "min": null,
+  "max": null,
+  "avg": null
+}
