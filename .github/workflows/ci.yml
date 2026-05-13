@@ -36,6 +36,15 @@ jobs:
             done
           done
 
+      - name: Create image api-test
+        run: docker build -t api-tests .
+
+      - name: Run api-tests
+        run: docker run --network host \
+          -e AUTH_URL=http://localhost:8000 \
+          -e UNIVERSITY_URL=http://localhost:8001 \
+          api-tests tests/ -s
+
       - name: Cleanup
         if: always()
         working-directory: ./docker_compose
