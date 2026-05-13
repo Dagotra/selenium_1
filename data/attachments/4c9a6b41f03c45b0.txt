@@ -1,0 +1,142 @@
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 150' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=shelby64&password=Sb6qaPgf%23At90uxDN6lA%24RD8kj%40e%261&password_repeat=Sb6qaPgf%23At90uxDN6lA%24RD8kj%40e%261&email=randall92%40example.com' http://localhost:8000/auth/register/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.259629'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 65' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=shelby64&password=Sb6qaPgf%23At90uxDN6lA%24RD8kj%40e%261' http://localhost:8000/auth/login/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.296882'
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA",
+  "token_type": "Bearer"
+}
+
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 20' -H 'Content-Type: application/json' -d '{"name": "Susan Ho"}' http://localhost:8001/groups/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.010720'
+{
+  "name": "Susan Ho",
+  "id": 3
+}
+
+INFO     Logger:logger.py:30 ### Step-group 1. Create group with id: '3' , name: 'Susan Ho'
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 147' -H 'Content-Type: application/json' -d '{"first_name": "Todd", "last_name": "Johnson", "email": "haileyhampton@example.net", "degree": "Doctorate", "phone": "+72039273246", "group_id": 3}' http://localhost:8001/students/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.010412'
+{
+  "first_name": "Todd",
+  "last_name": "Johnson",
+  "email": "haileyhampton@example.net",
+  "degree": "Doctorate",
+  "phone": "+72039273246",
+  "group_id": 3,
+  "id": 3
+}
+
+INFO     Logger:logger.py:30 ### Step-student 1. Create student with id: '3' , name: 'Todd'
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 79' -H 'Content-Type: application/json' -d '{"first_name": "oneJennifer", "last_name": "oneGraham", "subject": "Geography"}' http://localhost:8001/teachers/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.009355'
+{
+  "first_name": "oneJennifer",
+  "last_name": "oneGraham",
+  "subject": "Geography",
+  "id": 3
+}
+
+INFO     Logger:logger.py:30 ### Step-teacher 1.1: Create one teacher with id: 3
+INFO     Logger:logger.py:30 ### Step-student 1.2: Create one student with id: 3
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 33' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=3&student_id=3&grade=0' http://localhost:8001/grades/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.011033'
+{
+  "teacher_id": 3,
+  "student_id": 3,
+  "grade": 0,
+  "id": 3
+}
+
+INFO     Logger:logger.py:30 ### Step-grade 1.3: Create one grade with id: 3
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 77' -H 'Content-Type: application/json' -d '{"first_name": "twoEmily", "last_name": "twoHernandez", "subject": "History"}' http://localhost:8001/teachers/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.009377'
+{
+  "first_name": "twoEmily",
+  "last_name": "twoHernandez",
+  "subject": "History",
+  "id": 4
+}
+
+INFO     Logger:logger.py:30 ### Step-teacher 1.4: Create two teacher with id: 4
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 33' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=4&student_id=3&grade=0' http://localhost:8001/grades/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.010520'
+{
+  "teacher_id": 4,
+  "student_id": 3,
+  "grade": 0,
+  "id": 4
+}
+
+INFO     Logger:logger.py:30 ### Step-grade 1.5: Create two grade with id: 4
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 33' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=4&student_id=3&grade=3' http://localhost:8001/grades/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.010737'
+{
+  "teacher_id": 4,
+  "student_id": 3,
+  "grade": 3,
+  "id": 5
+}
+
+INFO     Logger:logger.py:30 ### Step-grade 1.6: Create three grade with id: 4
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' 'http://localhost:8001/grades/stats/?teacher_id=4'
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.008514'
+{
+  "count": 2,
+  "min": 0,
+  "max": 3,
+  "avg": 1.5
+}
+INFO     Logger:logger.py:30 ### Step-grade 2.1 Delete one grade with id: '3'
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/grades/3/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009068'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-grade 2.2. Delete two grade with id: '4'
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/grades/4/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009063'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-grade 2.3. Delete three grade with id: '5'
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/grades/5/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009081'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-teacher 2.4: Delete one teacher with id: 3
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/teachers/3/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009525'
+{
+  "detail": "Teacher deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-teacher 2.5: Delete two teacher with id: 4
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/teachers/4/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009268'
+{
+  "detail": "Teacher deleted"
+}
+
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/students/3/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009623'
+{
+  "detail": "Student deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-student 2. Delete student with id: '3' , name: 'Todd'
+INFO     Logger:logger.py:30 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoic2hlbGJ5NjQiLCJleHAiOjE3Nzg2Njk1ODcsImlhdCI6MTc3ODY2MjM4N30.daNiR3HX0LboTMxbdmbVRLa6sQSQvTFLdRqAif2XQ6d-I_GXSOvKh3Z2xSBczRvM0qnGhNuDR696Lln3i_iEx8rHjENIt9K3_cKzV69KLfj5ohDSPaojxYbZ0AMUjspL2-jxKkvEWGTRUwYLaD11ejYCZ5NIAuJvZPMbjaBbXNcGcLwN5Kz9I6_tYGA1oX--VUI46yyxoAai8gpIpCZy6KiXKHPgYyfYUH4Z2aFNhW7K1leOFn3vyucZ5y4jiv2RFuz4N5ov2MnfXQgDzB1j19rFMILvD9dxGhE2j9Fy-Bshrd2_hUrU_pzf4PJJ7Ne-PKQ4bUKYy6jsHE2RHHCJEA' -H 'Content-Length: 0' http://localhost:8001/groups/3/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.008810'
+{
+  "detail": "Group deleted"
+}
+
+INFO     Logger:logger.py:30 ### Step-group 2. Delete group with id: '3' , name: 'Susan Ho'
