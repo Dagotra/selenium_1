@@ -46,7 +46,7 @@ jobs:
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
           -e AUTH_URL=http://localhost:8000 \
           -e UNIVERSITY_URL=http://localhost:8001 \
-          api-tests tests/ -s
+          api-tests --alluredir=allure-results tests/ -s
 
       - name: Generate Allure Report
         if: always()
