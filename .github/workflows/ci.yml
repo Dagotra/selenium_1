@@ -40,7 +40,8 @@ jobs:
         run: docker build -t api-tests .
 
       - name: Run api-tests
-        run: docker run --network host \
+        run: |
+          docker run --network host \
           -e AUTH_URL=http://localhost:8000 \
           -e UNIVERSITY_URL=http://localhost:8001 \
           api-tests tests/ -s
