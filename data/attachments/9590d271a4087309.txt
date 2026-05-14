@@ -1,0 +1,20 @@
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 153' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=brian27&password=eBk5fFza%25M2NbtC%23ugqIvHdpO6%28%40rs&password_repeat=eBk5fFza%25M2NbtC%23ugqIvHdpO6%28%40rs&email=emilyfranklin%40example.net' http://localhost:8000/auth/register/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.307655'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 64' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=brian27&password=eBk5fFza%25M2NbtC%23ugqIvHdpO6%28%40rs' http://localhost:8000/auth/login/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.353319'
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzZXJuYW1lIjoiYnJpYW4yNyIsImV4cCI6MTc3ODc4MDQzMywiaWF0IjoxNzc4NzczMjMzfQ.l9pczM4z8gYMOh7wtxyfpSrMgNpu24ODHkh5kIHpi7kRAbuoatMV5k7aoL9xxeQxINs7oJP5opCB3tRNJP9k16-Va7CNGFlR98i-6qpnLpB-wAwMXuY7gpZpixV2UTgp5xZ3o12WObQjtXLFLl2-nwPTJc6ZhlQR2D2tCW86eosPtAfS4pC821aKr2IPZy5mhCboLdiP4KCWTHbeAb0fGVbEDTnk5lgo6z3waelC_ch4aTtRgCnFLlXQZ5U7hJE7WLQhpLSRcuc5BW8nrWwawjrqTU2knX17Wv5G7u4EMD9liNNw2Aet13vH5y5x9TcwpNySfwrcQbNdg4GegSUeYA",
+  "token_type": "Bearer"
+}
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzZXJuYW1lIjoiYnJpYW4yNyIsImV4cCI6MTc3ODc4MDQzMywiaWF0IjoxNzc4NzczMjMzfQ.l9pczM4z8gYMOh7wtxyfpSrMgNpu24ODHkh5kIHpi7kRAbuoatMV5k7aoL9xxeQxINs7oJP5opCB3tRNJP9k16-Va7CNGFlR98i-6qpnLpB-wAwMXuY7gpZpixV2UTgp5xZ3o12WObQjtXLFLl2-nwPTJc6ZhlQR2D2tCW86eosPtAfS4pC821aKr2IPZy5mhCboLdiP4KCWTHbeAb0fGVbEDTnk5lgo6z3waelC_ch4aTtRgCnFLlXQZ5U7hJE7WLQhpLSRcuc5BW8nrWwawjrqTU2knX17Wv5G7u4EMD9liNNw2Aet13vH5y5x9TcwpNySfwrcQbNdg4GegSUeYA' 'http://localhost:8001/grades/stats/?student_id=9999999999'
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009032'
+{
+  "count": 0,
+  "min": null,
+  "max": null,
+  "avg": null
+}

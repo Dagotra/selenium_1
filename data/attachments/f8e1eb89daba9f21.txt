@@ -1,0 +1,20 @@
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 162' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=stephaniehughes&password=Fb__FeQe%5Ej1W%25MMm10hOK%2Brgu%21u5%23R&password_repeat=Fb__FeQe%5Ej1W%25MMm10hOK%2Brgu%21u5%23R&email=ajefferson%40example.com' http://localhost:8000/auth/register/
+INFO     Logger:logger.py:30 Response status code= '201', elapsed_time='0:00:00.307716'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 74' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=stephaniehughes&password=Fb__FeQe%5Ej1W%25MMm10hOK%2Brgu%21u5%23R' http://localhost:8000/auth/login/
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.352689'
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsInVzZXJuYW1lIjoic3RlcGhhbmllaHVnaGVzIiwiZXhwIjoxNzc4NzgwNDMyLCJpYXQiOjE3Nzg3NzMyMzJ9.WfO4bYumttXGK_JJqHX1dvMBi5MapkmPPMbxLd_cOQBNTyOqU8jtP_0kTqmpC4immEEih6UmhSpLyambMmHRHjsfvibJzHqYW1Mg2QEya4S7tLOHKYPeWLceUvYyTG5yUWwvf6zl3g_aC4oZAQpYlCwJuC3h7CTeQXilni4c8xU9IsIOxFUwAnTrjYT8pSjBrTQUDSI3b1HKYswh-aUW-a7JYqBD-fYe0noeyQ3_BdivA1b1NeKano9jzRJbvYg5ZcQtMEAIZ3dJkbEc1QW6GElkeftltoIJikZg3JQDTgKMtmjjS2xvr_-u_EKTcHYZ3tt6JXfQ2_Xwml2kUejCbQ",
+  "token_type": "Bearer"
+}
+INFO     Logger:logger.py:30 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsInVzZXJuYW1lIjoic3RlcGhhbmllaHVnaGVzIiwiZXhwIjoxNzc4NzgwNDMyLCJpYXQiOjE3Nzg3NzMyMzJ9.WfO4bYumttXGK_JJqHX1dvMBi5MapkmPPMbxLd_cOQBNTyOqU8jtP_0kTqmpC4immEEih6UmhSpLyambMmHRHjsfvibJzHqYW1Mg2QEya4S7tLOHKYPeWLceUvYyTG5yUWwvf6zl3g_aC4oZAQpYlCwJuC3h7CTeQXilni4c8xU9IsIOxFUwAnTrjYT8pSjBrTQUDSI3b1HKYswh-aUW-a7JYqBD-fYe0noeyQ3_BdivA1b1NeKano9jzRJbvYg5ZcQtMEAIZ3dJkbEc1QW6GElkeftltoIJikZg3JQDTgKMtmjjS2xvr_-u_EKTcHYZ3tt6JXfQ2_Xwml2kUejCbQ' 'http://localhost:8001/grades/stats/?teacher_id=9999999999'
+INFO     Logger:logger.py:30 Response status code= '200', elapsed_time='0:00:00.009482'
+{
+  "count": 0,
+  "min": null,
+  "max": null,
+  "avg": null
+}
