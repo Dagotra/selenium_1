@@ -26,7 +26,7 @@ class TestStudent:
             group_name = faker.name()
             group = GroupRequest(name=faker.name())
             allure.attach(
-                json.dumps({"name": group_name}, index=4),
+                json.dumps({"name": group_name}, indent=4),
                 name="Request Group JSON",
                 attachment_type=AttachmentType.JSON
             )
