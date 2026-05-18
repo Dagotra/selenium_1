@@ -26,14 +26,14 @@ jobs:
 
       - name: Start services with Docker Compose
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB_AUTH: auth
-          POSTGRES_DB_UNIVERSITY: university
-          AUTH_SERVICE_INTERNAL_URL: http://auth-service:8000
-          AUTH_SERVICE_API_URL: http://127.0.0.1:8000
-          UNIVERSITY_SERVICE_INTERNAL_URL: http://university-service:8000
-          UNIVERSITY_SERVICE_API_URL: http://127.0.0.1:8001
+          POSTGRES_DB_AUTH: ${{ vars.POSTGRES_DB_AUTH }}
+          POSTGRES_DB_UNIVERSITY: ${{ vars.POSTGRES_DB_UNIVERSITY }}
+          AUTH_SERVICE_INTERNAL_URL: ${{ vars.AUTH_SERVICE_INTERNAL_URL }}
+          AUTH_SERVICE_API_URL: ${{ vars.AUTH_SERVICE_API_URL }}
+          UNIVERSITY_SERVICE_INTERNAL_URL: ${{ vars.UNIVERSITY_SERVICE_INTERNAL_URL }}
+          UNIVERSITY_SERVICE_API_URL: ${{ vars.UNIVERSITY_SERVICE_API_URL }}
         run: docker compose up -d
 
       - name: Create image api-test
@@ -44,17 +44,9 @@ jobs:
           mkdir -p allure-results
           docker run --network host \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
-          -e AUTH_SERVICE_API_URL=http://127.0.0.1:8000 \
-          -e UNIVERSITY_SERVICE_API_URL=http://127.0.0.1:8001 \
+          -e AUTH_SERVICE_API_URL=${{ vars.AUTH_SERVICE_API_URL }} \
+          -e UNIVERSITY_SERVICE_API_URL=${{ vars.UNIVERSITY_SERVICE_API_URL }} \
           api-tests --alluredir=allure-results tests/ -s
-
-      - name: Sanitize Allure Results (Remove JWT)
-        if: always()
-        run: |
-          if [ -d "${{ github.workspace }}/allure-results" ]; then
-            echo "Cleaning JWT tokens from Allure JSON files..."
-            find ${{ github.workspace }}/allure-results -type f -name "*.json" -exec sed -i -E 's/eyJhbGciOi[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/ [MASKED_JWT] /g' {} +
-          fi
 
       - name: Upload Allure Results
         if: always()
