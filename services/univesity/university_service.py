@@ -22,7 +22,7 @@ load_dotenv()
 
 
 class UniversityService(BaseService):
-    SERVICE_URL = os.getenv("UNIVERSITY_URL")
+    SERVICE_URL = os.getenv("UNIVERSITY_SERVICE_API_URL")
 
     def __init__(self, api_utils: ApiUtils):
         super().__init__(api_utils)

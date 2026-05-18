@@ -1,5 +1,10 @@
+import time
+
 import pytest
 import random
+
+import requests
+
 from logger.logger import Logger
 from services.auth.auth_service import AuthService
 from services.auth.models.login_request import LoginRequest
@@ -37,6 +42,28 @@ class TwoStudentData:
     student_id_2: int
     group_id_1: int
     group_id_2: int
+
+
+@pytest.fixture(scope="session", autouse=True)
+def auth_service_readiness():
+    services_urls = [
+        AuthService.SERVICE_URL + "/docs",
+        UniversityService.SERVICE_URL + "/docs"
+    ]
+    timeout = 180
+    for url in services_urls:
+        start_time = time.time()
+        while time.time() < start_time + timeout:
+            try:
+                response = requests.get(url, timeout=2)
+                response.raise_for_status()
+
+            except:
+                time.sleep(0.5)
+            else:
+                break
+        else:
+            raise RuntimeError(f"Auth service wasn't started during '{timeout}' seconds")
 
 
 @pytest.fixture(scope="function", autouse=False)

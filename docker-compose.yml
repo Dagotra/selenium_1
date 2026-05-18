@@ -40,7 +40,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB_AUTH}
-      POSTGRES_HOST: postgres_auth
+      POSTGRES_HOST: postgres-auth
       POSTGRES_PORT: 5432
     ports:
       - "8000:8000"
@@ -57,7 +57,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB_UNIVERSITY}
-      POSTGRES_HOST: postgres_university
+      POSTGRES_HOST: postgres-university
       POSTGRES_PORT: 5432
     ports:
       - "8001:8000"

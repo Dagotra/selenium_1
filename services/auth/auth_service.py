@@ -12,7 +12,7 @@ from utils.api_utils import ApiUtils
 
 class AuthService(BaseService):
     load_dotenv()
-    SERVICE_URL = os.getenv("AUTH_URL")
+    SERVICE_URL = os.getenv("AUTH_SERVICE_API_URL")
 
     def __init__(self, api_utils: ApiUtils):
         super().__init__(api_utils)

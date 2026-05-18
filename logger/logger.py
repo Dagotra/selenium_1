@@ -3,7 +3,7 @@ import os
 import sys
 from logging.handlers import RotatingFileHandler
 from typing import Union
-
+from logger.filters import SecurityMaskingFilter
 from logger.logger_config import LoggerConfig
 
 
@@ -12,8 +12,14 @@ class Logger:
         os.makedirs(LoggerConfig.LOGS_DIR_NAME)
     __logger = logging.getLogger(LoggerConfig.LOGGER_NAME)
     __logger.setLevel(LoggerConfig.LOGS_LEVEL)
-    __handler1 = RotatingFileHandler(LoggerConfig.LOGS_FILE_NAME, maxBytes=LoggerConfig.MAX_BYTES,
-                                     backupCount=LoggerConfig.BACKUP_COUNT)
+
+    __logger.addFilter(SecurityMaskingFilter())
+    __handler1 = RotatingFileHandler(
+        LoggerConfig.LOGS_FILE_NAME,
+        maxBytes=LoggerConfig.MAX_BYTES,
+        backupCount=LoggerConfig.BACKUP_COUNT,
+        encoding="utf-8"
+    )
     __handler2 = logging.StreamHandler(sys.stdout)
     __formater = logging.Formatter(LoggerConfig.FORMAT)
     __handler1.setFormatter(__formater)
