@@ -44,8 +44,8 @@ jobs:
           mkdir -p allure-results
           docker run --network host \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
-          -e AUTH_URL=http://127.0.0.1:8000 \
-          -e UNIVERSITY_URL=http://127.0.0.1:8001 \
+          -e AUTH_SERVICE_API_URL=http://127.0.0.1:8000 \
+          -e UNIVERSITY_SERVICE_API_URL=http://127.0.0.1:8001 \
           api-tests --alluredir=allure-results tests/ -s
 
       - name: Sanitize Allure Results (Remove JWT)

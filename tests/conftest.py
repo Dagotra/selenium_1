@@ -58,7 +58,7 @@ def auth_service_readiness():
                 response = requests.get(url, timeout=2)
                 response.raise_for_status()
 
-            except:
+            except (requests.exceptions.RequestException, Exception):
                 time.sleep(0.5)
             else:
                 break
