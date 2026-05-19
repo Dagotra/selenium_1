@@ -36,8 +36,18 @@ jobs:
           UNIVERSITY_SERVICE_API_URL: ${{ vars.UNIVERSITY_SERVICE_API_URL }}
         run: docker compose up -d
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Create image api-test
-        run: docker build -t api-tests .
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          tags: api-tests:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
+
 
       - name: run api-tests
         run: |
