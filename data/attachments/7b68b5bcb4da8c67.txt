@@ -1,0 +1,32 @@
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 150' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=carolyn57&password=xhP81B8%2BOTsDvFj2R2iV4KRUOUoM%29a&password_repeat=xhP81B8%2BOTsDvFj2R2iV4KRUOUoM%29a&email=michellemartinez%40example.org' http://127.0.0.1:8000/auth/register/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.307079'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 62' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=carolyn57&password=xhP81B8%2BOTsDvFj2R2iV4KRUOUoM%29a' http://127.0.0.1:8000/auth/login/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.354994'
+{
+  "access_token": "[MASKED_JWT]",
+  "token_type": "Bearer"
+}
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 26' -H 'Content-Type: application/json' -d '{"name": "Clinton Baxter"}' http://127.0.0.1:8001/groups/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.010756'
+{
+  "name": "Clinton Baxter",
+  "id": 13
+}
+
+INFO     Logger:logger.py:36 ### Step 1 Complete. Group Created ID: 13
+INFO     Logger:logger.py:36 ### Step 2. Create student
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 145' -H 'Content-Type: application/json' -d '{"first_name": "Kimberly", "last_name": "Harris", "email": "zthomas@example.com", "degree": "Doctorate", "phone": "+73436481639", "group_id": 13}' http://127.0.0.1:8001/students/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008936'
+{
+  "first_name": "Kimberly",
+  "last_name": "Harris",
+  "email": "zthomas@example.com",
+  "degree": "Doctorate",
+  "phone": "+73436481639",
+  "group_id": 13,
+  "id": 13
+}
