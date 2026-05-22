@@ -50,20 +50,25 @@ def auth_service_readiness():
         AuthService.SERVICE_URL + "/docs",
         UniversityService.SERVICE_URL + "/docs"
     ]
-    timeout = 180
+    timeout = 90
     for url in services_urls:
+        Logger.info(f"Waiting for service readiness '{url}'")
+
         start_time = time.time()
         while time.time() < start_time + timeout:
             try:
                 response = requests.get(url, timeout=2)
                 response.raise_for_status()
+                Logger.info(f"Service '{url}' is ready!")
 
-            except (requests.exceptions.RequestException, Exception):
-                time.sleep(0.5)
+            except (requests.exceptions.RequestException, Exception) as e:
+                Logger.info(f"Waiting '{url}'... Error is {e}")
+                time.sleep(1)
+
             else:
                 break
         else:
-            raise RuntimeError(f"Auth service wasn't started during '{timeout}' seconds")
+            raise RuntimeError(f"{url} service wasn't started during '{timeout}' seconds")
 
 
 @pytest.fixture(scope="function", autouse=False)
