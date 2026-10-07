@@ -1,0 +1,321 @@
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 160' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=derrickboyd&password=B9UB%26JDH%5E7riuaiq%293x8dQ%25WEH42%28j&password_repeat=B9UB%26JDH%5E7riuaiq%293x8dQ%25WEH42%28j&email=cochranpeggy%40example.net' http://127.0.0.1:8000/auth/register/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.197081'
+{
+  "detail": "User registered"
+}
+
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Content-Length: 70' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=derrickboyd&password=B9UB%26JDH%5E7riuaiq%293x8dQ%25WEH42%28j' http://127.0.0.1:8000/auth/login/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.223095'
+{
+  "access_token": "[MASKED_JWT]",
+  "token_type": "Bearer"
+}
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 20' -H 'Content-Type: application/json' -d '{"name": "identify"}' http://127.0.0.1:8001/groups/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008816'
+{
+  "name": "identify",
+  "id": 11
+}
+
+INFO     Logger:logger.py:36 ### Step-group 1. Create group with id: '11''
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 143' -H 'Content-Type: application/json' -d '{"first_name": "Sandra", "last_name": "Bell", "email": "evalencia@example.org", "degree": "Doctorate", "phone": "+75628401521", "group_id": 11}' http://127.0.0.1:8001/students/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.007186'
+{
+  "first_name": "Sandra",
+  "last_name": "Bell",
+  "email": "evalencia@example.org",
+  "degree": "Doctorate",
+  "phone": "+75628401521",
+  "group_id": 11,
+  "id": 11
+}
+
+INFO     Logger:logger.py:36 ### Step-student 1. Create student with id: '11'
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 20' -H 'Content-Type: application/json' -d '{"name": "language"}' http://127.0.0.1:8001/groups/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008133'
+{
+  "name": "language",
+  "id": 12
+}
+
+INFO     Logger:logger.py:36 ### Step-group 1. Create group with id: '12''
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 142' -H 'Content-Type: application/json' -d '{"first_name": "Judy", "last_name": "Kennedy", "email": "brittany19@example.com", "degree": "Master", "phone": "+74111290390", "group_id": 12}' http://127.0.0.1:8001/students/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008534'
+{
+  "first_name": "Judy",
+  "last_name": "Kennedy",
+  "email": "brittany19@example.com",
+  "degree": "Master",
+  "phone": "+74111290390",
+  "group_id": 12,
+  "id": 12
+}
+
+INFO     Logger:logger.py:36 ### Step-student 1. Create student with id: '12'
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 74' -H 'Content-Type: application/json' -d '{"first_name": "Ricardo", "last_name": "Arnold", "subject": "Mathematics"}' http://127.0.0.1:8001/teachers/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.007596'
+{
+  "first_name": "Ricardo",
+  "last_name": "Arnold",
+  "subject": "Mathematics",
+  "id": 14
+}
+
+INFO     Logger:logger.py:36 ### Step-teacher 1. Create teacher with id: '14'
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 69' -H 'Content-Type: application/json' -d '{"first_name": "Joseph", "last_name": "Thomas", "subject": "Biology"}' http://127.0.0.1:8001/teachers/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.007854'
+{
+  "first_name": "Joseph",
+  "last_name": "Thomas",
+  "subject": "Biology",
+  "id": 15
+}
+
+INFO     Logger:logger.py:36 ### Step-teacher 1. Create teacher with id: '15'
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=14&student_id=11&grade=4' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008019'
+{
+  "teacher_id": 14,
+  "student_id": 11,
+  "grade": 4,
+  "id": 23
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '23', grade: 4
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=14&student_id=11&grade=0' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008893'
+{
+  "teacher_id": 14,
+  "student_id": 11,
+  "grade": 0,
+  "id": 24
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '24', grade: 0
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=14&student_id=11&grade=1' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008816'
+{
+  "teacher_id": 14,
+  "student_id": 11,
+  "grade": 1,
+  "id": 25
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '25', grade: 1
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=14&student_id=11&grade=3' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008632'
+{
+  "teacher_id": 14,
+  "student_id": 11,
+  "grade": 3,
+  "id": 26
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '26', grade: 3
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=14&student_id=11&grade=4' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008701'
+{
+  "teacher_id": 14,
+  "student_id": 11,
+  "grade": 4,
+  "id": 27
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '27', grade: 4
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' 'http://127.0.0.1:8001/grades/stats/?student_id=11'
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.006557'
+{
+  "count": 5,
+  "min": 0,
+  "max": 4,
+  "avg": 2.4
+}
+
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=15&student_id=12&grade=1' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008199'
+{
+  "teacher_id": 15,
+  "student_id": 12,
+  "grade": 1,
+  "id": 28
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '28', grade: 1
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=15&student_id=12&grade=5' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008193'
+{
+  "teacher_id": 15,
+  "student_id": 12,
+  "grade": 5,
+  "id": 29
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '29', grade: 5
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=15&student_id=12&grade=5' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008837'
+{
+  "teacher_id": 15,
+  "student_id": 12,
+  "grade": 5,
+  "id": 30
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '30', grade: 5
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=15&student_id=12&grade=0' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008626'
+{
+  "teacher_id": 15,
+  "student_id": 12,
+  "grade": 0,
+  "id": 31
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '31', grade: 0
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 35' -H 'Content-Type: application/x-www-form-urlencoded' -d 'teacher_id=15&student_id=12&grade=1' http://127.0.0.1:8001/grades/
+INFO     Logger:logger.py:36 Response status code= '201', elapsed_time='0:00:00.008548'
+{
+  "teacher_id": 15,
+  "student_id": 12,
+  "grade": 1,
+  "id": 32
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1: Create grade with id: '32', grade: 1
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' 'http://127.0.0.1:8001/grades/stats/?student_id=12'
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.006459'
+{
+  "count": 5,
+  "min": 0,
+  "max": 5,
+  "avg": 2.4
+}
+
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' 'http://127.0.0.1:8001/grades/stats/?group_id=11'
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.006738'
+{
+  "count": 5,
+  "min": 0,
+  "max": 4,
+  "avg": 2.4
+}
+
+INFO     Logger:logger.py:36 Request: curl -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' 'http://127.0.0.1:8001/grades/stats/?group_id=12'
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007787'
+{
+  "count": 5,
+  "min": 0,
+  "max": 5,
+  "avg": 2.4
+}
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/23/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007318'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 1 Delete one grade with id: '23'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/24/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007571'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 2 Delete one grade with id: '24'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/25/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007486'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 3 Delete one grade with id: '25'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/26/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.009592'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 4 Delete one grade with id: '26'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/27/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007670'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 5 Delete one grade with id: '27'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/28/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007518'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 6 Delete one grade with id: '28'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/29/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.008464'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 7 Delete one grade with id: '29'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/30/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007586'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 8 Delete one grade with id: '30'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/31/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007652'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 9 Delete one grade with id: '31'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/grades/32/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007412'
+{
+  "detail": "Grade deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-grade 10 Delete one grade with id: '32'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/teachers/14/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007828'
+{
+  "detail": "Teacher deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-teacher 1. Delete teacher with id: '14'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/teachers/15/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007705'
+{
+  "detail": "Teacher deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-teacher 2. Delete teacher with id: '15'
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/students/11/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.008232'
+{
+  "detail": "Student deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-student 1. Delete student with id: '11''
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/students/12/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007466'
+{
+  "detail": "Student deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-student 2. Delete student with id: '12''
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/groups/11/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.006982'
+{
+  "detail": "Group deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-group 1. Delete group with id: '11''
+INFO     Logger:logger.py:36 Request: curl -X DELETE -H 'User-Agent: python-requests/2.32.5' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Authorization: Bearer [MASKED_JWT]' -H 'Content-Length: 0' http://127.0.0.1:8001/groups/12/
+INFO     Logger:logger.py:36 Response status code= '200', elapsed_time='0:00:00.007335'
+{
+  "detail": "Group deleted"
+}
+
+INFO     Logger:logger.py:36 ### Step-group 2. Delete group with id: '12''
